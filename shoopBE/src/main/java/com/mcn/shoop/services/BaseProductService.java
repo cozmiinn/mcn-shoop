@@ -2,6 +2,7 @@ package com.mcn.shoop.services;
 
 import com.mcn.shoop.entities.BaseProduct;
 import com.mcn.shoop.repositories.BaseProductRepository;
+import com.mcn.shoop.validators.BaseProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class BaseProductService {
     }
 
     public BaseProduct updateBaseProduct(Long id, BaseProduct baseProduct){
+        BaseProductValidator.validateBP(baseProduct);
         BaseProduct currentBaseProduct = baseProductRepository.findById(id).orElseThrow(RuntimeException::new);
         currentBaseProduct.setType(baseProduct.getType());
 

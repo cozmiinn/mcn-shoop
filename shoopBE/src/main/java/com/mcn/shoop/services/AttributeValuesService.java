@@ -2,6 +2,7 @@ package com.mcn.shoop.services;
 
 import com.mcn.shoop.entities.AttributeValues;
 import com.mcn.shoop.repositories.AttributeValuesRepository;
+import com.mcn.shoop.validators.AttributeValuesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class AttributeValuesService {
     }
 
     public AttributeValues updateAttributeValues(Long id, AttributeValues attributeValues) {
+        AttributeValuesValidator.validateAV(attributeValues);
         AttributeValues currentAttributeValues = attributeValuesRepository.findById(id).orElseThrow(RuntimeException::new);
         currentAttributeValues.setValue(attributeValues.getValue());
 

@@ -2,6 +2,7 @@ package com.mcn.shoop.services;
 
 import com.mcn.shoop.entities.CardDetails;
 import com.mcn.shoop.repositories.CardDetailsRepository;
+import com.mcn.shoop.validators.CardDetailsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class CardDetailsService {
     }
 
     public CardDetails updateCardDetails(Long id, CardDetails cardDetails){
+        CardDetailsValidator.validateCard(cardDetails);
         CardDetails currentCard = cardDetailsRepository.findById(id).orElseThrow(RuntimeException::new);
         currentCard.setCardNumber(cardDetails.getCardNumber());
         currentCard.setExpirationDate(cardDetails.getExpirationDate());

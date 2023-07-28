@@ -2,6 +2,7 @@ package com.mcn.shoop.services;
 
 import com.mcn.shoop.entities.Attribute;
 import com.mcn.shoop.repositories.AttributeRepository;
+import com.mcn.shoop.validators.AttributeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class AttributeService {
     }
 
     public Attribute updateAttribute(Long id, Attribute attribute){
+        AttributeValidator.validateAttribute(attribute);
         Attribute currentAttribute = attributeRepository.findById(id).orElseThrow(RuntimeException::new);
         currentAttribute.setAttribute(attribute.getAttribute());
 

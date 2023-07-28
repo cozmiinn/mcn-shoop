@@ -1,6 +1,7 @@
 package com.mcn.shoop.services;
 import com.mcn.shoop.entities.Address;
 import com.mcn.shoop.repositories.AddressRepository;
+import com.mcn.shoop.validators.AddressValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class AddressService {
     }
 
     public Address updateAddress(Long id, Address address){
+        AddressValidator.validateAddress(address);
         Address currentAddress = addressRepository.findById(id).orElseThrow(RuntimeException::new);
         currentAddress.setStreetLine(address.getStreetLine());
         currentAddress.setPostalCode(address.getPostalCode());

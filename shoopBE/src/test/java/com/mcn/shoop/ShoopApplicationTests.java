@@ -1,4 +1,4 @@
-package com.shop.dialogdata.shoop;
+package com.mcn.shoop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
