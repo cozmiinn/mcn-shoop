@@ -2,13 +2,16 @@ package com.mcn.shoop.services;
 
 import com.mcn.shoop.entities.User;
 import com.mcn.shoop.repositories.UserRepository;
+import com.mcn.shoop.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
 
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
@@ -23,6 +26,7 @@ public class UserService {
     }
 
     public User updateUser(Long id,User user) {
+        UserValidator.validateUser(user);
         User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setFirstName(user.getFirstName());
         currentUser.setLastName(user.getLastName());
@@ -30,6 +34,7 @@ public class UserService {
         currentUser.setEmail(user.getEmail());
         currentUser.setPhoneNumber(user.getPhoneNumber());
         currentUser.setPassword(user.getPassword());
+
         return userRepository.save(currentUser);
     }
 
