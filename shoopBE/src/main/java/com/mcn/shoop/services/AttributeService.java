@@ -27,6 +27,10 @@ public class AttributeService {
         AttributeValidator.validateAttribute(attribute);
         Attribute currentAttribute = attributeRepository.findById(id).orElseThrow(RuntimeException::new);
         currentAttribute.setAttribute(attribute.getAttribute());
+        
+        if(currentAttribute.getAttribute().equals(attribute.getAttribute())){
+            throw new IllegalArgumentException("Attribute already exists.");
+        }
 
         return attributeRepository.save(currentAttribute);
     }
@@ -34,4 +38,5 @@ public class AttributeService {
     public void deleteAttribute(Long id){
         attributeRepository.deleteById(id);
     }
+
 }
