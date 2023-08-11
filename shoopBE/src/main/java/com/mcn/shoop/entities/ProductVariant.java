@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name= "product_variant")
-public class ProductVariant {
+public class ProductVariant{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,10 @@ public class ProductVariant {
     @Column(name = "price", length = 10)
     private Float price;
 
-    @Column(name = "available_Quantity", length = 10)
+    @Column(name = "available_quantity", length = 10)
     private int availableQuantity;
 
-    @Column(name = "added_Date", length = 10)
+    @Column(name = "added_date", length = 10)
     private Date addedDate;
 
 
@@ -42,5 +42,5 @@ public class ProductVariant {
     private BaseProduct baseProduct;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "variants")
-    private List<Attribute> attributes;
+    private List<Attribute> attribute;
 }

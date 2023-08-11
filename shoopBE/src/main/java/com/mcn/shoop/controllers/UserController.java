@@ -2,9 +2,6 @@ package com.mcn.shoop.controllers;
 import com.mcn.shoop.entities.Address;
 import com.mcn.shoop.entities.CardDetails;
 import com.mcn.shoop.entities.User;
-import com.mcn.shoop.repositories.UserRepository;
-import com.mcn.shoop.services.AddressService;
-import com.mcn.shoop.services.CardDetailsService;
 import com.mcn.shoop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,29 +12,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
-    private final UserRepository userRepository;
-
     private final UserService userService;
-    private final AddressService addressService;
-    private final CardDetailsService cardDetailsService;
 
     @Autowired
-    public UserController(UserRepository userRepository, UserService userService, AddressService addressService, CardDetailsService cardDetailsService) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.addressService = addressService;
-        this.cardDetailsService = cardDetailsService;
     }
 
     @GetMapping
     public List<User> list() {
-        return userRepository.findAll();
+        return userService.getUsers();
     }
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id){
-        return userRepository.findById(id).orElseThrow(RuntimeException::new);
+        return userService.getUser(id);
     }
 
     @PostMapping
@@ -62,25 +51,15 @@ public class UserController {
 
     @PostMapping("/{id}/address")
     public ResponseEntity<Object> addAddressToUser(@PathVariable("id") Long id, @RequestBody Address address) {
-        User user = userRepository.findById(id).orElse(null);
-        if(user == null){
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        }
-        address.setUser(user);
-        addressService.createAddress(address);
+        userService.addAddressToUser(id, address);
         return new ResponseEntity<>("Address added to the user successfully", HttpStatus.OK);
     }
 
 
     @PostMapping("/{id}/cards")
     public ResponseEntity<Object> addCardToUser(@PathVariable("id") Long id, @RequestBody CardDetails cardDetails){
-        User user = userRepository.findById(id).orElse(null);
-        if(user == null){
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        }
-        cardDetails.setUser(user);
-        cardDetailsService.createCardDetails(cardDetails);
-        return new ResponseEntity<>("Payment card added to the user successfully", HttpStatus.OK);
+        userService.addCardToUser(id, cardDetails);
+        return new ResponseEntity<>("Payment card added to user successfully!", HttpStatus.OK);
     }
 
 }

@@ -12,8 +12,12 @@ public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public List<Address> getAddress(){
+    public List<Address> getAddresss(){
         return addressRepository.findAll();
+    }
+
+    public Address getAddress(Long id){
+        return addressRepository.findById(id).orElse(null);
     }
 
     public Address createAddress(Address address) {

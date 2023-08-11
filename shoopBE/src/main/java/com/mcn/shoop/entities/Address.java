@@ -15,10 +15,10 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="street_Line", length = 50)
+    @Column(name="street_line", length = 50)
     private String streetLine;
 
-    @Column(name="postal_Code", length = 50)
+    @Column(name="postal_code", length = 50)
     private String postalCode;
 
     @Column(name="city", length = 50)

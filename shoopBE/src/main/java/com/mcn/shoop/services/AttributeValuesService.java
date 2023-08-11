@@ -6,6 +6,8 @@ import com.mcn.shoop.validators.AttributeValuesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AttributeValuesService {
     @Autowired
@@ -15,6 +17,9 @@ public class AttributeValuesService {
         this.attributeValuesRepository = attributeValuesRepository;
     }
 
+    public List<AttributeValues> getAttributeValuess(){
+        return attributeValuesRepository.findAll();
+    }
     public AttributeValues getAttributeValues(Long id) {
         return attributeValuesRepository.findById(id).orElse(null);
     }

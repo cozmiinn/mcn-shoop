@@ -2,14 +2,16 @@ package com.mcn.shoop.controllers;
 
 import com.mcn.shoop.entities.Attribute;
 import com.mcn.shoop.entities.ProductVariant;
+import com.mcn.shoop.repositories.AttributeRepository;
 import com.mcn.shoop.repositories.ProductVariantRepository;
 import com.mcn.shoop.services.AttributeService;
 import com.mcn.shoop.services.ProductVariantService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins="http://localhost:3000/")
@@ -17,25 +19,21 @@ import java.util.List;
 @RequestMapping("/products/variant")
 public class ProductVariantController {
 
-    private final ProductVariantRepository productVariantRepository;
     private final ProductVariantService productVariantService;
-    private final AttributeService attributeService;
 
-
-    public ProductVariantController( ProductVariantRepository productVariantRepository, ProductVariantService productVariantService, AttributeService attributeService ) {
-        this.productVariantRepository = productVariantRepository;
+    @Autowired
+    public ProductVariantController(ProductVariantService productVariantService) {
         this.productVariantService = productVariantService;
-        this.attributeService = attributeService;
     }
 
     @GetMapping
     public List<ProductVariant> list(){
-        return productVariantRepository.findAll();
+        return productVariantService.getProductVariants();
     }
 
     @GetMapping("/{id}")
     public ProductVariant getProductVariant(@PathVariable Long id){
-        return productVariantRepository.findById(id).orElseThrow(RuntimeException::new);
+        return productVariantService.getProductVariant(id);
     }
 
     @PostMapping
@@ -55,17 +53,22 @@ public class ProductVariantController {
         productVariantService.deleteProductVariant(id);
     }
 
-    @PostMapping("/{id}/attributes")
-    public ResponseEntity<Object> addAttributesToProduct(@PathVariable("id") Long id, @RequestBody Attribute attributes){
-        ProductVariant productVariant = productVariantRepository.findById(id).orElse(null);
-        if(productVariant == null){
-            return new ResponseEntity<>("Product variant not found", HttpStatus.NOT_FOUND);
-        }
-        List<ProductVariant> productVariants = new ArrayList<>();
-        productVariants.add(productVariant);
-        attributes.setVariants(productVariants);
-        attributeService.createAttribute(attributes);
-        return new ResponseEntity<>("Attributes added to the product successfully", HttpStatus.OK);
-    }
-
+//    @PostMapping("/{id}/{attributeId}/attributes")
+//    public ResponseEntity<Object> addAttributesToProduct(@PathVariable("id") Long id, @PathVariable("attributeId") Long attributeId) {
+//        ProductVariant productVariant = productVariantRepository.findById(id).orElse(null);
+//        if (productVariant == null) {
+//            return new ResponseEntity<>("Product variant not found", HttpStatus.NOT_FOUND);
+//        }
+//        Attribute attributes = attributeRepository.findById(attributeId).orElse(null);
+//        if (attributes == null) {
+//            return new ResponseEntity<>("Attribute not found", HttpStatus.NOT_FOUND);
+//        }
+//        if(productVariant.getAttribute().contains(attributes)){
+//            return new ResponseEntity<>("Attribute already exists!", HttpStatus.BAD_REQUEST);
+//        }
+//        productVariant.getAttribute().add(attributes);
+//        attributeService.createAttribute(attributes);
+//        return new ResponseEntity<>("Attributes added to the product successfully", HttpStatus.OK);
+//    }
 }
+

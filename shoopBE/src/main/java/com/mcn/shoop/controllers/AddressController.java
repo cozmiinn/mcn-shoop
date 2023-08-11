@@ -2,8 +2,9 @@ package com.mcn.shoop.controllers;
 
 
 import com.mcn.shoop.entities.Address;
-import com.mcn.shoop.repositories.AddressRepository;
 import com.mcn.shoop.services.AddressService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,22 +15,20 @@ import java.util.List;
 @RequestMapping("/address")
 public class AddressController {
 
-    private final AddressRepository addressRepository;
-
     private final AddressService addressService;
-    public AddressController(AddressRepository addressRepository, AddressService addressService) {
-        this.addressRepository = addressRepository;
+    @Autowired
+    public AddressController(AddressService addressService) {
         this.addressService = addressService;
     }
 
     @GetMapping
     public List<Address> list() {
-        return addressRepository.findAll();
+        return addressService.getAddresss();
     }
 
     @GetMapping("/{id}")
     public Address getAddress(@PathVariable Long id) {
-        return addressRepository.findById(id).orElseThrow(RuntimeException::new);
+       return addressService.getAddress(id);
     }
 
 
@@ -47,7 +46,8 @@ public class AddressController {
 
 
     @DeleteMapping("/{id}")
-    public void deleteAddress(@PathVariable("id") Long id){
+    public ResponseEntity<String> deleteAddress(@PathVariable("id") Long id){
         addressService.deleteAddress(id);
+        return new ResponseEntity<>("Address is deleted successfully!", HttpStatus.OK);
     }
 }

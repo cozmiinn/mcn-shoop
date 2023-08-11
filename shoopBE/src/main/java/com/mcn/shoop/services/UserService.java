@@ -1,20 +1,35 @@
 package com.mcn.shoop.services;
 
+import com.mcn.shoop.entities.Address;
+import com.mcn.shoop.entities.CardDetails;
 import com.mcn.shoop.entities.User;
 import com.mcn.shoop.repositories.UserRepository;
 import com.mcn.shoop.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class UserService {
+
+    private final UserRepository userRepository;
+
+    private final AddressService addressService;
+
+    private final CardDetailsService cardDetailsService;
+
     @Autowired
-    private UserRepository userRepository;
-
-
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, AddressService addressService, CardDetailsService cardDetailsService) {
         this.userRepository = userRepository;
+        this.addressService = addressService;
+        this.cardDetailsService = cardDetailsService;
+    }
+
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
     public User getUser(Long id) {
@@ -42,4 +57,23 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public void addAddressToUser(Long id, Address address){
+        User user = userRepository.findById(id).orElse(null);
+        if(user != null){
+            address.setUser(user);
+            addressService.createAddress(address);
+        } else {
+            throw new IllegalArgumentException("User not found!");
+        }
+    }
+
+    public void addCardToUser(Long id, CardDetails cardDetails){
+        User user = userRepository.findById(id).orElse(null);
+        if(user != null){
+            cardDetails.setUser(user);
+            cardDetailsService.createCardDetails(cardDetails);
+        } else {
+            throw  new IllegalArgumentException("User not found!");
+        }
+    }
 }

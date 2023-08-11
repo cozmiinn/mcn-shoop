@@ -3,6 +3,7 @@ package com.mcn.shoop.controllers;
 import com.mcn.shoop.entities.CardDetails;
 import com.mcn.shoop.repositories.CardDetailsRepository;
 import com.mcn.shoop.services.CardDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,22 +13,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/card")
 public class CardDetailsController {
-    private final CardDetailsRepository cardDetailsRepository;
     private final CardDetailsService cardDetailsService;
 
-    public CardDetailsController(CardDetailsRepository cardDetailsRepository, CardDetailsService cardDetailsService) {
-        this.cardDetailsRepository = cardDetailsRepository;
+    @Autowired
+    public CardDetailsController(CardDetailsService cardDetailsService) {
         this.cardDetailsService = cardDetailsService;
     }
 
     @GetMapping
     public List<CardDetails> list(){
-        return cardDetailsRepository.findAll();
+        return cardDetailsService.getCards();
     }
 
     @GetMapping("/{id}")
     public CardDetails getCardDetails(@PathVariable Long id){
-        return cardDetailsRepository.findById(id).orElseThrow(RuntimeException::new);
+        return cardDetailsService.getCard(id);
     }
 
     @PostMapping

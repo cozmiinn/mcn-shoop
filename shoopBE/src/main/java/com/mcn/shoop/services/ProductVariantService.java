@@ -10,11 +10,21 @@ import java.util.List;
 
 @Service
 public class ProductVariantService {
-    @Autowired
-    private ProductVariantRepository productVariantRepository;
 
-    public List<ProductVariant> getProductVariant(){
+    private final ProductVariantRepository productVariantRepository;
+    private final AttributeService attributeService;
+    @Autowired
+    public ProductVariantService(ProductVariantRepository productVariantRepository, AttributeService attributeService) {
+        this.productVariantRepository = productVariantRepository;
+        this.attributeService = attributeService;
+    }
+
+    public List<ProductVariant> getProductVariants(){
         return productVariantRepository.findAll();
+    }
+
+    public ProductVariant getProductVariant(Long id) {
+       return productVariantRepository.findById(id).orElse(null);
     }
 
     public ProductVariant createProductVariant(ProductVariant productVariant){
@@ -36,4 +46,8 @@ public class ProductVariantService {
     public void deleteProductVariant(Long id){
         productVariantRepository.deleteById(id);
     }
+
+//    public void addAttributesToProduct(Long id, ProductVariant productVariant){
+//
+//    }
 }

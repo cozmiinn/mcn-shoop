@@ -2,10 +2,8 @@ package com.mcn.shoop.controllers;
 
 import com.mcn.shoop.entities.BaseProduct;
 import com.mcn.shoop.entities.ProductVariant;
-import com.mcn.shoop.repositories.BaseProductRepository;
-import com.mcn.shoop.repositories.ProductVariantRepository;
 import com.mcn.shoop.services.BaseProductService;
-import com.mcn.shoop.services.ProductVariantService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,24 +15,22 @@ import java.util.List;
 @RequestMapping("/products")
 public class BaseProductController {
 
-    private final BaseProductRepository baseProductRepository;
-    private final BaseProductService baseProductService;
-    private final ProductVariantService productVariantService;
 
-    public BaseProductController(BaseProductRepository baseProductRepository, BaseProductService baseProductService, ProductVariantRepository productVariantRepository, ProductVariantService productVariantService) {
-        this.baseProductRepository = baseProductRepository;
+    private final BaseProductService baseProductService;
+
+    @Autowired
+    public BaseProductController(BaseProductService baseProductService) {
         this.baseProductService = baseProductService;
-        this.productVariantService = productVariantService;
     }
 
     @GetMapping
     public List<BaseProduct> list(){
-        return baseProductRepository.findAll();
+        return baseProductService.getBaseProducts();
     }
 
     @GetMapping("/{id}")
     public BaseProduct getBaseProduct(@PathVariable Long id){
-        return baseProductRepository.findById(id).orElseThrow(RuntimeException::new);
+        return baseProductService.getBaseProduct(id);
     }
 
     @PostMapping
@@ -57,13 +53,7 @@ public class BaseProductController {
 
     @PostMapping("/{id}/variant")
     public ResponseEntity<Object> addVariantToProduct(@PathVariable("id") Long id, @RequestBody ProductVariant productVariant){
-        BaseProduct baseProduct = baseProductRepository.findById(id).orElse(null);
-        if(baseProduct==null){
-            return new ResponseEntity<>("Base product not found!", HttpStatus.NOT_FOUND);
-        }
-
-        productVariant.setBaseProduct(baseProduct);
-        productVariantService.createProductVariant(productVariant);
+        baseProductService.addVariantToProduct(id, productVariant);
         return new ResponseEntity<>("Variant added to the product successfully!", HttpStatus.OK);
     }
 }

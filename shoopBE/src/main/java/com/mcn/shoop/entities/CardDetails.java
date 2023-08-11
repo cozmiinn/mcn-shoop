@@ -19,13 +19,13 @@ public class CardDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="card_Number", length = 16)
+    @Column(name="card_number", length = 16)
     private Long cardNumber;
 
-    @Column(name = "expiration_Date", length = 10)
+    @Column(name = "expiration_date", length = 10)
     private Date expirationDate;
 
-    @Column(name = "name_Card", length = 50)
+    @Column(name = "name_card", length = 50)
     private String nameCard;
 
     @Column(name = "cvv", length = 3)
