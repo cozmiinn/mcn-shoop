@@ -6,6 +6,8 @@ import com.mcn.shoop.entities.User;
 import com.mcn.shoop.repositories.UserRepository;
 import com.mcn.shoop.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class UserService {
     private final AddressService addressService;
 
     private final CardDetailsService cardDetailsService;
+
 
     @Autowired
     public UserService(UserRepository userRepository, AddressService addressService, CardDetailsService cardDetailsService) {
@@ -45,7 +48,7 @@ public class UserService {
         User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setFirstName(user.getFirstName());
         currentUser.setLastName(user.getLastName());
-        currentUser.setSecondName(user.getSecondName());
+        currentUser.setMiddleName(user.getMiddleName());
         currentUser.setEmail(user.getEmail());
         currentUser.setPhoneNumber(user.getPhoneNumber());
         currentUser.setPassword(user.getPassword());
@@ -63,7 +66,7 @@ public class UserService {
             address.setUser(user);
             addressService.createAddress(address);
         } else {
-            throw new IllegalArgumentException("User not found!");
+            new ResponseEntity<>("User not found!", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -73,7 +76,7 @@ public class UserService {
             cardDetails.setUser(user);
             cardDetailsService.createCardDetails(cardDetails);
         } else {
-            throw  new IllegalArgumentException("User not found!");
+            new ResponseEntity<>("User not found!", HttpStatus.BAD_REQUEST);
         }
     }
 }

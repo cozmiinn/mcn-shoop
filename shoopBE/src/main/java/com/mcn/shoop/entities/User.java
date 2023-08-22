@@ -1,6 +1,7 @@
 package com.mcn.shoop.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,8 +26,8 @@ public class User {
     @Column(name="last_name", length = 50)
     private String lastName;
 
-    @Column(name = "second_name", length = 50)
-    private String secondName;
+    @Column(name = "middle_name", length = 50)
+    private String middleName;
 
     @Column(name="email", length = 50)
     private String email;
@@ -43,4 +44,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<CardDetails> paymentCards;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    @JsonIgnore
+    private Cart cart;
 }

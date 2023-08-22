@@ -5,6 +5,8 @@ import com.mcn.shoop.entities.ProductVariant;
 import com.mcn.shoop.repositories.BaseProductRepository;
 import com.mcn.shoop.validators.BaseProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,7 +54,7 @@ public class BaseProductService {
             productVariant.setBaseProduct(baseProduct);
             productVariantService.createProductVariant(productVariant);
         }else{
-            throw new IllegalArgumentException("Base product not found!");
+            new ResponseEntity<>("Base product not found!", HttpStatus.NOT_FOUND);
         }
     }
 }

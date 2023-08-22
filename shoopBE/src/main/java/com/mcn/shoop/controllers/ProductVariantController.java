@@ -1,10 +1,7 @@
 package com.mcn.shoop.controllers;
 
-import com.mcn.shoop.entities.Attribute;
+import com.mcn.shoop.entities.CartEntry;
 import com.mcn.shoop.entities.ProductVariant;
-import com.mcn.shoop.repositories.AttributeRepository;
-import com.mcn.shoop.repositories.ProductVariantRepository;
-import com.mcn.shoop.services.AttributeService;
 import com.mcn.shoop.services.ProductVariantService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,22 +50,17 @@ public class ProductVariantController {
         productVariantService.deleteProductVariant(id);
     }
 
-//    @PostMapping("/{id}/{attributeId}/attributes")
-//    public ResponseEntity<Object> addAttributesToProduct(@PathVariable("id") Long id, @PathVariable("attributeId") Long attributeId) {
-//        ProductVariant productVariant = productVariantRepository.findById(id).orElse(null);
-//        if (productVariant == null) {
-//            return new ResponseEntity<>("Product variant not found", HttpStatus.NOT_FOUND);
-//        }
-//        Attribute attributes = attributeRepository.findById(attributeId).orElse(null);
-//        if (attributes == null) {
-//            return new ResponseEntity<>("Attribute not found", HttpStatus.NOT_FOUND);
-//        }
-//        if(productVariant.getAttribute().contains(attributes)){
-//            return new ResponseEntity<>("Attribute already exists!", HttpStatus.BAD_REQUEST);
-//        }
-//        productVariant.getAttribute().add(attributes);
-//        attributeService.createAttribute(attributes);
-//        return new ResponseEntity<>("Attributes added to the product successfully", HttpStatus.OK);
-//    }
+    @PostMapping("/{id}/{attributeId}/attributes")
+    public ResponseEntity<Object> addAttributesToProduct(@PathVariable("id") Long id, @PathVariable("attributeId") Long attributeId) {
+        return productVariantService.addAttributesToProduct(id, attributeId);
+    }
+
+
+    @PostMapping("/{id}/entry")
+    public ResponseEntity<Object> addEntryToCart (@PathVariable("id") Long id, @RequestBody CartEntry cartEntry){
+        productVariantService.addProductToEntry(id, cartEntry);
+        return new ResponseEntity<>("Entries added to cart succesfully!", HttpStatus.OK);
+    }
+
 }
 

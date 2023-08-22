@@ -10,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin(origins="http://localhost:3000/")
 @RestController
-@RequestMapping("/products/values")
+@RequestMapping("/products/attribute/value")
 public class AttributeValuesController {
     private final AttributeValuesService attributeValuesService;
 

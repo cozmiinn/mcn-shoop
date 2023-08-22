@@ -4,6 +4,8 @@ import com.mcn.shoop.entities.Attribute;
 import com.mcn.shoop.entities.AttributeValues;
 import com.mcn.shoop.repositories.AttributeRepository;
 import com.mcn.shoop.validators.AttributeValidator;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,7 +51,7 @@ public class AttributeService {
             attributeValues.setAttribute(attribute);
             attributeValuesService.createAttributeValues(attributeValues);
         } else {
-            throw new IllegalArgumentException("Attribute not found!");
+            new ResponseEntity<>("Attribute not found!", HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -1,22 +1,33 @@
 package com.mcn.shoop.services;
 
+import com.mcn.shoop.entities.Attribute;
+import com.mcn.shoop.entities.CartEntry;
 import com.mcn.shoop.entities.ProductVariant;
+import com.mcn.shoop.repositories.AttributeRepository;
 import com.mcn.shoop.repositories.ProductVariantRepository;
 import com.mcn.shoop.validators.ProductVariantValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProductVariantService {
 
     private final ProductVariantRepository productVariantRepository;
+
+    private final AttributeRepository attributeRepository;
     private final AttributeService attributeService;
+    private final CartEntryService cartEntryService;
     @Autowired
-    public ProductVariantService(ProductVariantRepository productVariantRepository, AttributeService attributeService) {
+    public ProductVariantService(ProductVariantRepository productVariantRepository, AttributeService attributeService, AttributeRepository attributeRepository, CartEntryService cartEntryService) {
         this.productVariantRepository = productVariantRepository;
         this.attributeService = attributeService;
+        this.attributeRepository = attributeRepository;
+        this.cartEntryService = cartEntryService;
     }
 
     public List<ProductVariant> getProductVariants(){
@@ -47,7 +58,38 @@ public class ProductVariantService {
         productVariantRepository.deleteById(id);
     }
 
-//    public void addAttributesToProduct(Long id, ProductVariant productVariant){
-//
-//    }
+
+    public ResponseEntity<Object> addAttributesToProduct(Long id, Long attributeId) {
+        ProductVariant productVariant = productVariantRepository.findById(id).orElse(null);
+        if (productVariant == null) {
+            return new ResponseEntity<>("Product variant not found", HttpStatus.NOT_FOUND);
+        }
+
+        Attribute attributes = attributeRepository.findById(attributeId).orElse(null);
+        if (attributes == null) {
+            return new ResponseEntity<>("Attribute is null!", HttpStatus.BAD_REQUEST);
+        }
+
+        if (productVariant.getAttribute().contains(attributes)) {
+            return new ResponseEntity<>("Attribute already exists", HttpStatus.BAD_REQUEST);
+        }
+
+        List<ProductVariant> productVariants = new ArrayList<>();
+        productVariants.add(productVariant);
+
+        productVariant.getAttribute().add(attributes);
+        attributes.setVariants(productVariants);
+
+        attributeService.createAttribute(attributes);
+
+        return new ResponseEntity<>("Attributes added to the product successfully", HttpStatus.OK);
+    }
+
+    public void addProductToEntry(Long id, CartEntry cartEntry){
+        ProductVariant productVariant = productVariantRepository.findById(id).orElse(null);
+        if(productVariant != null){
+            cartEntry.setProduct(productVariant);
+            cartEntryService.createCartEntry(cartEntry);
+        }
+    }
 }

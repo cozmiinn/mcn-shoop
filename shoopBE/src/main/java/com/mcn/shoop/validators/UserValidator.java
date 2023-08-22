@@ -16,10 +16,6 @@ public class UserValidator {
             throw new IllegalArgumentException("The last name is required!");
         }
 
-        if(StringUtils.isEmpty(user.getSecondName())){
-            throw new IllegalArgumentException("The middle is required.!");
-        }
-
         if(StringUtils.isEmpty(user.getEmail())){
             throw new IllegalArgumentException("Email is required!");
         }

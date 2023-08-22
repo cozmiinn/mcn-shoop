@@ -43,4 +43,8 @@ public class ProductVariant{
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "variants")
     private List<Attribute> attribute;
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<CartEntry> cartEntries;
 }

@@ -20,6 +20,7 @@ public class AttributeValuesService {
     public List<AttributeValues> getAttributeValuess(){
         return attributeValuesRepository.findAll();
     }
+
     public AttributeValues getAttributeValues(Long id) {
         return attributeValuesRepository.findById(id).orElse(null);
     }
