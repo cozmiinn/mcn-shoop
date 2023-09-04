@@ -4,6 +4,7 @@ import com.mcn.shoop.entities.Attribute;
 import com.mcn.shoop.entities.CartEntry;
 import com.mcn.shoop.entities.ProductVariant;
 import com.mcn.shoop.repositories.AttributeRepository;
+import com.mcn.shoop.repositories.CartEntryRepository;
 import com.mcn.shoop.repositories.ProductVariantRepository;
 import com.mcn.shoop.validators.ProductVariantValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,18 @@ public class ProductVariantService {
 
     private final AttributeRepository attributeRepository;
     private final AttributeService attributeService;
+
+    private final CartEntryRepository cartEntryRepository;
+
     private final CartEntryService cartEntryService;
+
+
     @Autowired
-    public ProductVariantService(ProductVariantRepository productVariantRepository, AttributeService attributeService, AttributeRepository attributeRepository, CartEntryService cartEntryService) {
+    public ProductVariantService(ProductVariantRepository productVariantRepository, AttributeService attributeService, AttributeRepository attributeRepository, CartEntryRepository cartEntryRepository, CartEntryService cartEntryService) {
         this.productVariantRepository = productVariantRepository;
         this.attributeService = attributeService;
         this.attributeRepository = attributeRepository;
+        this.cartEntryRepository = cartEntryRepository;
         this.cartEntryService = cartEntryService;
     }
 
@@ -85,11 +92,21 @@ public class ProductVariantService {
         return new ResponseEntity<>("Attributes added to the product successfully", HttpStatus.OK);
     }
 
-    public void addProductToEntry(Long id, CartEntry cartEntry){
+    public ResponseEntity<Object> addProductToEntry(Long id, Long entryId){
         ProductVariant productVariant = productVariantRepository.findById(id).orElse(null);
-        if(productVariant != null){
-            cartEntry.setProduct(productVariant);
-            cartEntryService.createCartEntry(cartEntry);
+        if(productVariant == null){
+            return new ResponseEntity<>("Entry not found!", HttpStatus.NOT_FOUND);
         }
+
+        CartEntry cartEntry = cartEntryRepository.findById(entryId).orElse(null);
+        if(cartEntry == null){
+            return new ResponseEntity<>("Product not found!", HttpStatus.NOT_FOUND);
+        }
+
+        productVariant.getCartEntries().add(cartEntry);
+        cartEntry.setProduct(productVariant);
+        cartEntryService.createCartEntry(cartEntry);
+
+        return new ResponseEntity<>("Product added to the entry successfully!", HttpStatus.OK);
     }
 }

@@ -1,13 +1,12 @@
 package com.mcn.shoop.controllers;
 
 import com.mcn.shoop.entities.CartEntry;
-import com.mcn.shoop.entities.ProductVariant;
 import com.mcn.shoop.services.CartEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import scala.concurrent.java8.FuturesConvertersImpl;
+
 
 import java.util.List;
 
@@ -47,6 +46,6 @@ public class CartEntryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCartEntry(@PathVariable("id") Long id){
         cartEntryService.deleteCartEntry(id);
-        return new ResponseEntity<>("Cart is deleted succesfully!", HttpStatus.OK);
+        return new ResponseEntity<>("Cart is deleted successfully!", HttpStatus.OK);
     }
 }

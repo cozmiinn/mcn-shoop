@@ -1,9 +1,7 @@
 package com.mcn.shoop.services;
 
 import com.mcn.shoop.entities.CartEntry;
-import com.mcn.shoop.entities.ProductVariant;
 import com.mcn.shoop.repositories.CartEntryRepository;
-import com.mcn.shoop.repositories.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

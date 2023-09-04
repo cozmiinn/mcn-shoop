@@ -1,8 +1,6 @@
 package com.mcn.shoop.controllers;
 
 import com.mcn.shoop.entities.Cart;
-import com.mcn.shoop.entities.CartEntry;
-import com.mcn.shoop.entities.User;
 import com.mcn.shoop.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,10 +48,9 @@ public class CartController {
         return new ResponseEntity<>("Cart is deleted succesfully!", HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/entry")
-    public ResponseEntity<Object> addEntryToCart(@PathVariable("id") Long id, @RequestBody CartEntry cartEntry){
-        cartService.addEntryToCart(id, cartEntry);
-        return new ResponseEntity<>("Entry added to cart successfully!", HttpStatus.OK);
+    @PostMapping("/{id}/{entryId}/entry")
+    public ResponseEntity<Object> addEntryToCart(@PathVariable("id") Long id, @PathVariable("entryId") Long entryId){
+        return cartService.addEntryToCart(id, entryId);
     }
 
     @PostMapping("/{id}/{userId}/user")
@@ -61,4 +58,8 @@ public class CartController {
         return cartService.addCartToUser(id, userId);
     }
 
+    @PostMapping("/{id}/{voucherId}/voucher")
+    public ResponseEntity<Object> addVoucherToCart(@PathVariable("id") Long id, @PathVariable("voucherId") Long voucherId){
+        return cartService.addVoucherToCart(id, voucherId);
+    }
 }

@@ -45,6 +45,5 @@ public class ProductVariant{
     private List<Attribute> attribute;
 
     @OneToMany(mappedBy = "product")
-    @JsonIgnore
     private List<CartEntry> cartEntries;
 }

@@ -21,9 +21,13 @@ public class Cart {
     @OneToMany(mappedBy = "cart")
     private List<User> user;
 
+    @OneToMany(mappedBy = "cart")
+    private List<Voucher> vouchers;
+
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartEntry> cartEntries;
 
     @Column(name = "total_price")
     private double totalPrice;
+
 }

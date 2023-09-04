@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service
 public class AddressService {
+    private final AddressRepository addressRepository;
+
     @Autowired
-    private AddressRepository addressRepository;
+    public AddressService(AddressRepository addressRepository){
+        this.addressRepository = addressRepository;
+    }
 
     public List<Address> getAddresss(){
         return addressRepository.findAll();
@@ -23,6 +27,7 @@ public class AddressService {
     public Address createAddress(Address address) {
         return addressRepository.save(address);
     }
+
 
     public Address updateAddress(Long id, Address address){
         AddressValidator.validateAddress(address);

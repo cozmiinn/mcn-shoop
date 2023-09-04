@@ -24,6 +24,7 @@ public class CartEntry {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_variant_id")
+    @JsonIgnore
     private ProductVariant product;
 
     @Column(name="quantity")

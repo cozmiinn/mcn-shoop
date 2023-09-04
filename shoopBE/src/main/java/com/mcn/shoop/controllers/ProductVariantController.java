@@ -1,11 +1,8 @@
 package com.mcn.shoop.controllers;
 
-import com.mcn.shoop.entities.CartEntry;
 import com.mcn.shoop.entities.ProductVariant;
 import com.mcn.shoop.services.ProductVariantService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +14,6 @@ import java.util.List;
 public class ProductVariantController {
 
     private final ProductVariantService productVariantService;
-
     @Autowired
     public ProductVariantController(ProductVariantService productVariantService) {
         this.productVariantService = productVariantService;
@@ -55,12 +51,9 @@ public class ProductVariantController {
         return productVariantService.addAttributesToProduct(id, attributeId);
     }
 
-
-    @PostMapping("/{id}/entry")
-    public ResponseEntity<Object> addEntryToCart (@PathVariable("id") Long id, @RequestBody CartEntry cartEntry){
-        productVariantService.addProductToEntry(id, cartEntry);
-        return new ResponseEntity<>("Entries added to cart succesfully!", HttpStatus.OK);
+    @PostMapping("/{id}/{entryId}/entry")
+    public ResponseEntity<Object> addProductToEntry(@PathVariable("id") Long id, @PathVariable("entryId") Long entryId) {
+        return productVariantService.addProductToEntry(id, entryId);
     }
-
 }
 
