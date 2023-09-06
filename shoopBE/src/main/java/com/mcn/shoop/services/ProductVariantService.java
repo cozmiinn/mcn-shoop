@@ -69,7 +69,7 @@ public class ProductVariantService {
     public ResponseEntity<Object> addAttributesToProduct(Long id, Long attributeId) {
         ProductVariant productVariant = productVariantRepository.findById(id).orElse(null);
         if (productVariant == null) {
-            return new ResponseEntity<>("Product variant not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Product variant not found!", HttpStatus.NOT_FOUND);
         }
 
         Attribute attributes = attributeRepository.findById(attributeId).orElse(null);
@@ -78,7 +78,7 @@ public class ProductVariantService {
         }
 
         if (productVariant.getAttribute().contains(attributes)) {
-            return new ResponseEntity<>("Attribute already exists", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Attribute already exists!", HttpStatus.BAD_REQUEST);
         }
 
         List<ProductVariant> productVariants = new ArrayList<>();
@@ -89,7 +89,7 @@ public class ProductVariantService {
 
         attributeService.createAttribute(attributes);
 
-        return new ResponseEntity<>("Attributes added to the product successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Attributes added to the product successfully!", HttpStatus.OK);
     }
 
     public ResponseEntity<Object> addProductToEntry(Long id, Long entryId){

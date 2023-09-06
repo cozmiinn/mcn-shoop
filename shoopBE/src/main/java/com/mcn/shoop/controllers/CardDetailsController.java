@@ -1,7 +1,6 @@
 package com.mcn.shoop.controllers;
 
 import com.mcn.shoop.entities.CardDetails;
-import com.mcn.shoop.repositories.CardDetailsRepository;
 import com.mcn.shoop.services.CardDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +35,7 @@ public class CardDetailsController {
         return ResponseEntity.ok(saveCardDetails);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<CardDetails> updateCardDetails(@PathVariable Long id, @RequestBody CardDetails cardDetails){
         CardDetails updateCardDetails = cardDetailsService.updateCardDetails(id, cardDetails);
         return ResponseEntity.ok(updateCardDetails);

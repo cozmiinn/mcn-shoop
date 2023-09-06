@@ -1,13 +1,14 @@
 package com.mcn.shoop.controllers;
+
 import com.mcn.shoop.entities.Address;
 import com.mcn.shoop.entities.CardDetails;
-import com.mcn.shoop.entities.Cart;
 import com.mcn.shoop.entities.User;
 import com.mcn.shoop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 @CrossOrigin(origins="http://localhost:3000")
 @RestController

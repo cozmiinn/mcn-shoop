@@ -12,7 +12,6 @@ public class CartEntryService {
     private final CartEntryRepository cartEntryRepository;
 
     @Autowired
-
     public CartEntryService(CartEntryRepository cartEntryRepository) {
         this.cartEntryRepository = cartEntryRepository;
     }

@@ -39,9 +39,4 @@ public class Attribute {
     @OneToOne(mappedBy = "attribute")
     private AttributeValues values;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "attribute_values_id")
-//    @JsonIgnore
-//    private AttributeValues attributeValues;
-
 }

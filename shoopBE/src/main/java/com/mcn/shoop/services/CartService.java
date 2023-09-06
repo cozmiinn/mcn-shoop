@@ -27,9 +27,9 @@ public class CartService {
 
     private final CartEntryRepository cartEntryRepository;
 
-    private VouchersRepository vouchersRepository;
+    private final VouchersRepository vouchersRepository;
 
-    private VouchersService vouchersService;
+    private final VouchersService vouchersService;
 
     @Autowired
     public CartService(CartRepository cartRepository, CartEntryService cartEntryService, UserService userService, UserRepository userRepository, CartEntryRepository cartEntryRepository, VouchersRepository vouchersRepository, VouchersService vouchersService) {
@@ -76,12 +76,12 @@ public class CartService {
     public ResponseEntity<Object> addCartToUser(Long id, Long userId) {
         Cart cart = cartRepository.findById(id).orElse(null);
         if (cart == null) {
-            return new ResponseEntity<>("Cart not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Cart not found!", HttpStatus.NOT_FOUND);
         }
 
         User users = userRepository.findById(userId).orElse(null);
         if (users == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User not found!", HttpStatus.NOT_FOUND);
         }
 
         if (cart.getUser().contains(users)) {

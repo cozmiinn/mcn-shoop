@@ -47,7 +47,7 @@ public class AttributeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAttribute(@PathVariable("id") Long id){
         attributeService.deleteAttribute(id);
-        return new ResponseEntity<>("Attribute is deleted succesfully", HttpStatus.OK);
+        return new ResponseEntity<>("Attribute is deleted successfully", HttpStatus.OK);
     }
 
     @PostMapping("/{id}/values")

@@ -27,8 +27,4 @@ public class AttributeValues {
     @JsonIgnore
     private Attribute attribute;
 
-//    @OneToMany(mappedBy = "attribute_values")
-//    private List<AttributeValues> idValue;
-
-
 }

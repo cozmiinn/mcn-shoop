@@ -10,9 +10,9 @@ import java.util.List;
 
 @Service
 public class AttributeValuesService {
-    @Autowired
-    private AttributeValuesRepository attributeValuesRepository;
+    private final AttributeValuesRepository attributeValuesRepository;
 
+    @Autowired
     public AttributeValuesService(AttributeValuesRepository attributeValuesRepository) {
         this.attributeValuesRepository = attributeValuesRepository;
     }

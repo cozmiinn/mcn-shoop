@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class CardDetailsService {
+    private final CardDetailsRepository cardDetailsRepository;
+
     @Autowired
-    private CardDetailsRepository cardDetailsRepository;
+    private CardDetailsService(CardDetailsRepository cardDetailsRepository){
+        this.cardDetailsRepository = cardDetailsRepository;
+    }
 
 
     public List<CardDetails> getCards(){
