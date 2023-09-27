@@ -1,18 +1,17 @@
 package com.mcn.shoop.controllers;
 
-import com.mcn.shoop.entities.CartEntry;
+import com.mcn.shoop.dtos.CartEntryDTO;
 import com.mcn.shoop.services.CartEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
-@RequestMapping("/entry")
+@RequestMapping("user/cart/entry")
 public class CartEntryController {
     private final CartEntryService cartEntryService;
 
@@ -22,28 +21,28 @@ public class CartEntryController {
     }
 
     @GetMapping
-    public List<CartEntry> list(){
+    public List<CartEntryDTO> list(){
         return cartEntryService.getCartEntrys();
     }
 
-    @GetMapping("/{id}")
-    public CartEntry getCartEntry(@PathVariable Long id){
+    @GetMapping("/find/{id}")
+    public CartEntryDTO getCartEntry(@PathVariable Long id){
         return cartEntryService.getCartEntry(id);
     }
 
-    @PostMapping
-    public ResponseEntity<CartEntry> createCartEntry(@RequestBody CartEntry cartEntry){
-        CartEntry savedCartEntry = cartEntryService.createCartEntry(cartEntry);
+    @PostMapping("/add")
+    public ResponseEntity<CartEntryDTO> createCartEntry(@RequestBody CartEntryDTO cartEntryDTO){
+        CartEntryDTO savedCartEntry = cartEntryService.createCartEntry(cartEntryDTO);
         return ResponseEntity.ok(savedCartEntry);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CartEntry> updateCartEntry(@PathVariable Long id, @RequestBody CartEntry cartEntry){
-        CartEntry updateCartEntry = cartEntryService.updateCartEntry(id, cartEntry);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<CartEntryDTO> updateCartEntry(@PathVariable Long id, @RequestBody CartEntryDTO cartEntryDTO){
+        CartEntryDTO updateCartEntry = cartEntryService.updateCartEntry(id, cartEntryDTO);
         return ResponseEntity.ok(updateCartEntry);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCartEntry(@PathVariable("id") Long id){
         cartEntryService.deleteCartEntry(id);
         return new ResponseEntity<>("Cart is deleted successfully!", HttpStatus.OK);

@@ -1,40 +1,57 @@
 package com.mcn.shoop.services;
 
+import com.mcn.shoop.dtos.AttributeValuesDTO;
 import com.mcn.shoop.entities.AttributeValues;
+import com.mcn.shoop.mappers.AttributeValuesStructMapper;
 import com.mcn.shoop.repositories.AttributeValuesRepository;
 import com.mcn.shoop.validators.AttributeValuesValidator;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AttributeValuesService {
     private final AttributeValuesRepository attributeValuesRepository;
+    private final AttributeValuesStructMapper attributeValuesStructMapper;
 
     @Autowired
-    public AttributeValuesService(AttributeValuesRepository attributeValuesRepository) {
+    public AttributeValuesService(AttributeValuesRepository attributeValuesRepository, AttributeValuesStructMapper attributeValuesStructMapper) {
         this.attributeValuesRepository = attributeValuesRepository;
+        this.attributeValuesStructMapper = attributeValuesStructMapper;
     }
 
-    public List<AttributeValues> getAttributeValuess(){
-        return attributeValuesRepository.findAll();
+    public List<AttributeValuesDTO> getAttributeValues(){
+        List<AttributeValues> getAttributeValues = attributeValuesRepository.findAll();
+        List<AttributeValuesDTO> attributeValuesDTOS = getAttributeValues
+                .stream()
+                .map(attributeValuesStructMapper::attributeValuesToAttributeValuesDto)
+                .collect(Collectors.toList());
+        return attributeValuesDTOS;
     }
 
-    public AttributeValues getAttributeValues(Long id) {
-        return attributeValuesRepository.findById(id).orElse(null);
+    public AttributeValuesDTO getAttributeValues(Long id) {
+        AttributeValues getAttributeValues = attributeValuesRepository.findById(id).orElse(null);
+        return attributeValuesStructMapper.attributeValuesToAttributeValuesDto(getAttributeValues);
     }
 
-    public AttributeValues createAttributeValues(AttributeValues attributeValues) {
-        return attributeValuesRepository.save(attributeValues);
+    public AttributeValuesDTO createAttributeValues(AttributeValuesDTO attributeValuesDTO) {
+        AttributeValues attributeValues = attributeValuesStructMapper.attributeValuesDtoToAttributeValues(attributeValuesDTO);
+        AttributeValues create = attributeValuesRepository.save(attributeValues);
+        return attributeValuesStructMapper.attributeValuesToAttributeValuesDto(create);
     }
 
-    public AttributeValues updateAttributeValues(Long id, AttributeValues attributeValues) {
-        AttributeValuesValidator.validateAV(attributeValues);
-        AttributeValues currentAttributeValues = attributeValuesRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentAttributeValues.setValue(attributeValues.getValue());
+    public AttributeValuesDTO updateAttributeValues(Long id, AttributeValuesDTO attributeValuesDTO) {
+        AttributeValuesValidator.validateAV(attributeValuesDTO);
 
-        return attributeValuesRepository.save(attributeValues);
+        AttributeValues currentAttributeValues = attributeValuesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Values with id " + id + " not found!"));
+        currentAttributeValues.setValue(attributeValuesDTO.getValue());
+
+        currentAttributeValues = attributeValuesRepository.save(currentAttributeValues);
+
+        return attributeValuesStructMapper.attributeValuesToAttributeValuesDto(currentAttributeValues);
     }
 
     public void deleteAttributeValues(Long id) {

@@ -1,7 +1,7 @@
 package com.mcn.shoop.controllers;
 
 
-import com.mcn.shoop.entities.Address;
+import com.mcn.shoop.dtos.AddressDTO;
 import com.mcn.shoop.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin(origins="http://localhost:3000/")
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/users/addresses")
 public class AddressController {
 
     private final AddressService addressService;
@@ -22,30 +22,28 @@ public class AddressController {
     }
 
     @GetMapping
-    public List<Address> list() {
+    public List<AddressDTO> list() {
         return addressService.getAddresss();
     }
 
-    @GetMapping("/{id}")
-    public Address getAddress(@PathVariable Long id) {
+    @GetMapping("/find/{id}")
+    public AddressDTO getAddress(@PathVariable Long id) {
        return addressService.getAddress(id);
     }
 
-
-    @PostMapping
-    public ResponseEntity<Address> createAddress(@RequestBody Address address){
-        Address savedAddress = addressService.createAddress(address);
+    @PostMapping("/add")
+    public ResponseEntity<AddressDTO> createAddress(@RequestBody AddressDTO addressDTO){
+        AddressDTO savedAddress = addressService.createAddress(addressDTO);
         return ResponseEntity.ok(savedAddress);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Address> updateAddress(@PathVariable Long id, @RequestBody Address address) {
-        Address updateAddress = addressService.updateAddress(id, address);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<AddressDTO> updateAddress(@PathVariable Long id, @RequestBody AddressDTO addressDTO) {
+        AddressDTO updateAddress = addressService.updateAddress(id, addressDTO);
         return ResponseEntity.ok(updateAddress);
     }
 
-
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteAddress(@PathVariable("id") Long id){
         addressService.deleteAddress(id);
         return new ResponseEntity<>("Address is deleted successfully!", HttpStatus.OK);

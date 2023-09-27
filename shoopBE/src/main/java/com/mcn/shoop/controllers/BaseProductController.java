@@ -1,7 +1,7 @@
 package com.mcn.shoop.controllers;
 
-import com.mcn.shoop.entities.BaseProduct;
-import com.mcn.shoop.entities.ProductVariant;
+import com.mcn.shoop.dtos.BaseProductDTO;
+import com.mcn.shoop.dtos.ProductVariantDTO;
 import com.mcn.shoop.services.BaseProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,36 +24,36 @@ public class BaseProductController {
     }
 
     @GetMapping
-    public List<BaseProduct> list(){
+    public List<BaseProductDTO> list(){
         return baseProductService.getBaseProducts();
     }
 
-    @GetMapping("/{id}")
-    public BaseProduct getBaseProduct(@PathVariable Long id){
+    @GetMapping("/find/{id}")
+    public BaseProductDTO getBaseProduct(@PathVariable Long id){
         return baseProductService.getBaseProduct(id);
     }
 
-    @PostMapping
-    public ResponseEntity<BaseProduct> createBaseProduct(@RequestBody BaseProduct baseProduct){
-        BaseProduct saveBaseProduct = baseProductService.createBaseProduct(baseProduct);
+    @PostMapping("/add")
+    public ResponseEntity<BaseProductDTO> createBaseProduct(@RequestBody BaseProductDTO baseProductDTO){
+        BaseProductDTO saveBaseProduct = baseProductService.createBaseProduct(baseProductDTO);
         return ResponseEntity.ok(saveBaseProduct);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<BaseProduct> updateBaseProduct(@PathVariable Long id, @RequestBody BaseProduct baseProduct){
-        BaseProduct updateBaseProduct = baseProductService.updateBaseProduct(id, baseProduct);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<BaseProductDTO> updateBaseProduct(@PathVariable Long id, @RequestBody BaseProductDTO baseProductDTO){
+        BaseProductDTO updateBaseProduct = baseProductService.updateBaseProduct(id, baseProductDTO);
         return ResponseEntity.ok(updateBaseProduct);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteBaseProduct(@PathVariable("id") Long id){
         baseProductService.deleteBaseProduct(id);
         return new ResponseEntity<>("Base product is deleted successfully", HttpStatus.OK);
     }
 
     @PostMapping("/{id}/variant")
-    public ResponseEntity<Object> addVariantToProduct(@PathVariable("id") Long id, @RequestBody ProductVariant productVariant){
-        baseProductService.addVariantToProduct(id, productVariant);
+    public ResponseEntity<Object> addVariantToProduct(@PathVariable("id") Long id, @RequestBody ProductVariantDTO productVariantDTO){
+        baseProductService.addVariantToProduct(id, productVariantDTO);
         return new ResponseEntity<>("Variant added to the product successfully!", HttpStatus.OK);
     }
 }

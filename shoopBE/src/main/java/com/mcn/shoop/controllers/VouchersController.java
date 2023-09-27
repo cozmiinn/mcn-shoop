@@ -1,8 +1,9 @@
 package com.mcn.shoop.controllers;
 
-import com.mcn.shoop.entities.Voucher;
+import com.mcn.shoop.dtos.VoucherDTO;
 import com.mcn.shoop.services.VouchersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,24 +21,30 @@ public class VouchersController {
     }
 
     @GetMapping
-    public List<Voucher> list(){
+    public List<VoucherDTO> list(){
         return vouchersService.getVoucherss();
     }
 
     @GetMapping("/{id}")
-    public Voucher getVouchers(@PathVariable Long id){
+    public VoucherDTO getVouchers(@PathVariable Long id){
         return vouchersService.getVouchers(id);
     }
 
     @PostMapping
-    public ResponseEntity<Voucher> createVouchers(@RequestBody Voucher vouchers){
-        Voucher savedVouchers = vouchersService.createVouchers(vouchers);
+    public ResponseEntity<VoucherDTO> createVouchers(@RequestBody VoucherDTO voucherDTO){
+        VoucherDTO savedVouchers = vouchersService.createVouchers(voucherDTO);
         return ResponseEntity.ok(savedVouchers);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Voucher> updateVouchers(@PathVariable Long id, @RequestBody Voucher vouchers){
-        Voucher updateVouchers = vouchersService.updateVouchers(id, vouchers);
+    public ResponseEntity<VoucherDTO> updateVouchers(@PathVariable Long id, @RequestBody VoucherDTO voucherDTO){
+        VoucherDTO updateVouchers = vouchersService.updateVouchers(id, voucherDTO);
         return ResponseEntity.ok(updateVouchers);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteVouchers(@PathVariable("id") Long id){
+        vouchersService.deleteVouchers(id);
+        return new ResponseEntity<>("Voucher is deleted successfully!", HttpStatus.OK);
     }
 }

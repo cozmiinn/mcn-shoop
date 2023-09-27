@@ -1,6 +1,6 @@
 package com.mcn.shoop.controllers;
 
-import com.mcn.shoop.entities.CardDetails;
+import com.mcn.shoop.dtos.CardDetailsDTO;
 import com.mcn.shoop.services.CardDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin(origins="http://localhost:3000/")
 @RestController
-@RequestMapping("/card")
+@RequestMapping("/users/cards")
 public class CardDetailsController {
     private final CardDetailsService cardDetailsService;
 
@@ -20,28 +20,28 @@ public class CardDetailsController {
     }
 
     @GetMapping
-    public List<CardDetails> list(){
+    public List<CardDetailsDTO> list(){
         return cardDetailsService.getCards();
     }
 
-    @GetMapping("/{id}")
-    public CardDetails getCardDetails(@PathVariable Long id){
+    @GetMapping("/find/{id}")
+    public CardDetailsDTO getCardDetails(@PathVariable Long id){
         return cardDetailsService.getCard(id);
     }
 
-    @PostMapping
-    public ResponseEntity<CardDetails> createCardDetails(@RequestBody CardDetails cardDetails){
-        CardDetails saveCardDetails = cardDetailsService.createCardDetails(cardDetails);
+    @PostMapping("/add")
+    public ResponseEntity<CardDetailsDTO> createCardDetails(@RequestBody CardDetailsDTO cardDetailsDTO){
+        CardDetailsDTO saveCardDetails = cardDetailsService.createCardDetails(cardDetailsDTO);
         return ResponseEntity.ok(saveCardDetails);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CardDetails> updateCardDetails(@PathVariable Long id, @RequestBody CardDetails cardDetails){
-        CardDetails updateCardDetails = cardDetailsService.updateCardDetails(id, cardDetails);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<CardDetailsDTO> updateCardDetails(@PathVariable Long id, @RequestBody CardDetailsDTO cardDetailsDTO){
+        CardDetailsDTO updateCardDetails = cardDetailsService.updateCardDetails(id, cardDetailsDTO);
         return ResponseEntity.ok(updateCardDetails);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteAddress(@PathVariable("id") Long id){
         cardDetailsService.deleteCardDetails(id);
     }

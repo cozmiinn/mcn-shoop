@@ -1,6 +1,8 @@
 package com.mcn.shoop.controllers;
 
-import com.mcn.shoop.entities.ProductVariant;
+import com.mcn.shoop.dtos.AttributeDTO;
+import com.mcn.shoop.dtos.CartEntryDTO;
+import com.mcn.shoop.dtos.ProductVariantDTO;
 import com.mcn.shoop.services.ProductVariantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,40 +22,40 @@ public class ProductVariantController {
     }
 
     @GetMapping
-    public List<ProductVariant> list(){
+    public List<ProductVariantDTO> list(){
         return productVariantService.getProductVariants();
     }
 
-    @GetMapping("/{id}")
-    public ProductVariant getProductVariant(@PathVariable Long id){
+    @GetMapping("/find/{id}")
+    public ProductVariantDTO getProductVariant(@PathVariable Long id){
         return productVariantService.getProductVariant(id);
     }
 
-    @PostMapping
-    public ResponseEntity<ProductVariant> createProductVariant(@RequestBody ProductVariant productVariant){
-        ProductVariant savedProductVariant = productVariantService.createProductVariant(productVariant);
+    @PostMapping("/add")
+    public ResponseEntity<ProductVariantDTO> createProductVariant(@RequestBody ProductVariantDTO productVariantDTO){
+        ProductVariantDTO savedProductVariant = productVariantService.createProductVariant(productVariantDTO);
         return ResponseEntity.ok(savedProductVariant);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductVariant> updateProductVariant(@PathVariable Long id, @RequestBody ProductVariant productVariant){
-        ProductVariant updateProductVariant = productVariantService.updateProductVariant(id, productVariant);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ProductVariantDTO> updateProductVariant(@PathVariable Long id, @RequestBody ProductVariantDTO productVariantDTO){
+        ProductVariantDTO updateProductVariant = productVariantService.updateProductVariant(id, productVariantDTO);
         return ResponseEntity.ok(updateProductVariant);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteProductVariant(@PathVariable("id") Long id){
         productVariantService.deleteProductVariant(id);
     }
 
-    @PostMapping("/{id}/{attributeId}/attributes")
-    public ResponseEntity<Object> addAttributesToProduct(@PathVariable("id") Long id, @PathVariable("attributeId") Long attributeId) {
-        return productVariantService.addAttributesToProduct(id, attributeId);
+    @PostMapping("/{id}/attribute/{attributeId}")
+    public ResponseEntity<Object> addAttributesToProduct(@PathVariable("id") Long id, @PathVariable("attributeId") Long attributeId, AttributeDTO attributeDTO) {
+        return productVariantService.addAttributesToProduct(id, attributeId, attributeDTO);
     }
 
-    @PostMapping("/{id}/{entryId}/entry")
-    public ResponseEntity<Object> addProductToEntry(@PathVariable("id") Long id, @PathVariable("entryId") Long entryId) {
-        return productVariantService.addProductToEntry(id, entryId);
+    @PostMapping("/{id}/entry/{entryId}")
+    public ResponseEntity<Object> addProductToEntry(@PathVariable("id") Long id, @PathVariable("entryId") Long entryId, CartEntryDTO cartEntryDTO) {
+        return productVariantService.addProductToEntry(id, entryId, cartEntryDTO);
     }
 }
 

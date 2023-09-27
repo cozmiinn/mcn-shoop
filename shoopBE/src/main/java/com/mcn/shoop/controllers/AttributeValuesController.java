@@ -1,6 +1,6 @@
 package com.mcn.shoop.controllers;
 
-import com.mcn.shoop.entities.AttributeValues;
+import com.mcn.shoop.dtos.AttributeValuesDTO;
 import com.mcn.shoop.services.AttributeValuesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin(origins="http://localhost:3000/")
 @RestController
-@RequestMapping("/products/attribute/value")
+@RequestMapping("/products/variant/attribute/value")
 public class AttributeValuesController {
     private final AttributeValuesService attributeValuesService;
 
@@ -20,28 +20,28 @@ public class AttributeValuesController {
     }
 
     @GetMapping
-    public List<AttributeValues> list(){
-        return attributeValuesService.getAttributeValuess();
+    public List<AttributeValuesDTO> list(){
+        return attributeValuesService.getAttributeValues();
     }
 
-    @GetMapping("/{id}")
-    public AttributeValues getValues(@PathVariable Long id){
+    @GetMapping("/find/{id}")
+    public AttributeValuesDTO getValues(@PathVariable Long id){
         return attributeValuesService.getAttributeValues(id);
     }
 
-    @PostMapping
-    public ResponseEntity<AttributeValues> createValues(@RequestBody AttributeValues attributeValues){
-        AttributeValues savedValues = attributeValuesService.createAttributeValues(attributeValues);
+    @PostMapping("/add")
+    public ResponseEntity<AttributeValuesDTO> createValues(@RequestBody AttributeValuesDTO attributeValuesDTO){
+        AttributeValuesDTO savedValues = attributeValuesService.createAttributeValues(attributeValuesDTO);
         return ResponseEntity.ok(savedValues);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<AttributeValues> updateValues(@PathVariable Long id, @RequestBody AttributeValues attributeValues) {
-        AttributeValues updateValues = attributeValuesService.updateAttributeValues(id, attributeValues);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<AttributeValuesDTO> updateValues(@PathVariable Long id, @RequestBody AttributeValuesDTO attributeValuesDTO) {
+        AttributeValuesDTO updateValues = attributeValuesService.updateAttributeValues(id, attributeValuesDTO);
         return ResponseEntity.ok(updateValues);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteValues(@PathVariable("id") Long id){
         attributeValuesService.deleteAttributeValues(id);
     }

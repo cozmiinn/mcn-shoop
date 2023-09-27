@@ -1,7 +1,7 @@
 package com.mcn.shoop.controllers;
 
-import com.mcn.shoop.entities.Attribute;
-import com.mcn.shoop.entities.AttributeValues;
+import com.mcn.shoop.dtos.AttributeDTO;
+import com.mcn.shoop.dtos.AttributeValuesDTO;
 import com.mcn.shoop.services.AttributeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,36 +23,36 @@ public class AttributeController {
     }
 
     @GetMapping
-    public List<Attribute> list(){
+    public List<AttributeDTO> list(){
         return attributeService.getAttributes();
     }
 
-    @GetMapping("/{id}")
-    public Attribute getAttribute(@PathVariable Long id){
+    @GetMapping("/find/{id}")
+    public AttributeDTO getAttribute(@PathVariable Long id){
         return attributeService.getAttribute(id);
     }
 
-    @PostMapping
-    public ResponseEntity<Attribute> createAttribute(@RequestBody Attribute attribute){
-        Attribute savedAttribute = attributeService.createAttribute(attribute);
+    @PostMapping("/add")
+    public ResponseEntity<AttributeDTO> createAttribute(@RequestBody AttributeDTO attributeDTO){
+        AttributeDTO savedAttribute = attributeService.createAttribute(attributeDTO);
         return ResponseEntity.ok(savedAttribute);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Attribute> updateAttribute(@PathVariable Long id, @RequestBody Attribute attribute){
-        Attribute updateAttribute = attributeService.updateAttribute(id, attribute);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<AttributeDTO> updateAttribute(@PathVariable Long id, @RequestBody AttributeDTO attributeDTO){
+        AttributeDTO updateAttribute = attributeService.updateAttribute(id, attributeDTO);
         return ResponseEntity.ok(updateAttribute);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteAttribute(@PathVariable("id") Long id){
         attributeService.deleteAttribute(id);
         return new ResponseEntity<>("Attribute is deleted successfully", HttpStatus.OK);
     }
 
     @PostMapping("/{id}/values")
-    public ResponseEntity<Object> addValuesToAttribute(@PathVariable("id") Long id, @RequestBody AttributeValues attributeValues){
-        attributeService.addValuesToAttribute(id, attributeValues);
+    public ResponseEntity<Object> addValuesToAttribute(@PathVariable("id") Long id, @RequestBody AttributeValuesDTO attributeValuesDTO){
+        attributeService.addValuesToAttribute(id, attributeValuesDTO);
         return new ResponseEntity<>("Values added to the attribute successfully", HttpStatus.OK);
     }
 }

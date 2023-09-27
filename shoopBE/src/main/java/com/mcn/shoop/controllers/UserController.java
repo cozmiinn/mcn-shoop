@@ -1,8 +1,10 @@
 package com.mcn.shoop.controllers;
 
+import com.mcn.shoop.dtos.AddressDTO;
+import com.mcn.shoop.dtos.CardDetailsDTO;
+import com.mcn.shoop.dtos.UserDTO;
 import com.mcn.shoop.entities.Address;
 import com.mcn.shoop.entities.CardDetails;
-import com.mcn.shoop.entities.User;
 import com.mcn.shoop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,28 +24,28 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> list() {
+    public List<UserDTO> list() {
         return userService.getUsers();
     }
 
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id){
+    @GetMapping("/find/{id}")
+    public UserDTO getUser(@PathVariable Long id){
         return userService.getUser(id);
     }
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User savedUser = userService.createUser(user);
+    @PostMapping("/add")
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
+        UserDTO savedUser = userService.createUser(userDTO);
         return ResponseEntity.ok(savedUser);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
-        User updatedUser = userService.updateUser(id, user);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
+        UserDTO updatedUser = userService.updateUser(id, userDTO);
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long id){
         userService.deleteUser(id);
         return new ResponseEntity<>("User is deleted successfully", HttpStatus.OK);
@@ -51,11 +53,11 @@ public class UserController {
 
 
 
-    @PostMapping("/{id}/address")
-    public ResponseEntity<Object> addAddressToUser(@PathVariable("id") Long id, @RequestBody Address address) {
-        userService.addAddressToUser(id, address);
-        return new ResponseEntity<>("Address added to the user successfully", HttpStatus.OK);
-    }
+//    @PostMapping("/{id}/address")
+//    public ResponseEntity<Object> addAddressToUser(@PathVariable("id") Long id, @RequestBody AddressDTO addressDTO) {
+//        userService.addAddressToUser(id, addressDTO);
+//        return new ResponseEntity<>("Address added to the user successfully", HttpStatus.OK);
+//    }
 
 
     @PostMapping("/{id}/cards")
