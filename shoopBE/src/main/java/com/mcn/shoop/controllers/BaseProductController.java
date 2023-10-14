@@ -52,8 +52,8 @@ public class BaseProductController {
     }
 
     @PostMapping("/{id}/variant")
-    public ResponseEntity<Object> addVariantToProduct(@PathVariable("id") Long id, @RequestBody ProductVariantDTO productVariantDTO){
-        baseProductService.addVariantToProduct(id, productVariantDTO);
-        return new ResponseEntity<>("Variant added to the product successfully!", HttpStatus.OK);
+    public ResponseEntity<ProductVariantDTO> addVariantToProduct(@PathVariable("id") Long id, @RequestBody ProductVariantDTO productVariantDTO){
+        ProductVariantDTO productVariant = baseProductService.addVariantToProduct(id, productVariantDTO);
+        return new ResponseEntity<>(productVariant, HttpStatus.OK);
     }
 }

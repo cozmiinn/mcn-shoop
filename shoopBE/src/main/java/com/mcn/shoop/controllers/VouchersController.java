@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins="http://localhost:3000/")
 @RestController
-@RequestMapping("/products/vouchers")
+@RequestMapping("/user/cart/vouchers")
 public class VouchersController {
     private final VouchersService vouchersService;
 
@@ -25,24 +25,24 @@ public class VouchersController {
         return vouchersService.getVoucherss();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public VoucherDTO getVouchers(@PathVariable Long id){
         return vouchersService.getVouchers(id);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<VoucherDTO> createVouchers(@RequestBody VoucherDTO voucherDTO){
         VoucherDTO savedVouchers = vouchersService.createVouchers(voucherDTO);
         return ResponseEntity.ok(savedVouchers);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<VoucherDTO> updateVouchers(@PathVariable Long id, @RequestBody VoucherDTO voucherDTO){
         VoucherDTO updateVouchers = vouchersService.updateVouchers(id, voucherDTO);
         return ResponseEntity.ok(updateVouchers);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteVouchers(@PathVariable("id") Long id){
         vouchersService.deleteVouchers(id);
         return new ResponseEntity<>("Voucher is deleted successfully!", HttpStatus.OK);

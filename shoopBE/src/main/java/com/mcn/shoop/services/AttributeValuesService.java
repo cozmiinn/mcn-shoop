@@ -25,7 +25,8 @@ public class AttributeValuesService {
 
     public List<AttributeValuesDTO> getAttributeValues(){
         List<AttributeValues> getAttributeValues = attributeValuesRepository.findAll();
-        List<AttributeValuesDTO> attributeValuesDTOS = getAttributeValues
+        List<AttributeValuesDTO> attributeValuesDTOS;
+        attributeValuesDTOS = getAttributeValues
                 .stream()
                 .map(attributeValuesStructMapper::attributeValuesToAttributeValuesDto)
                 .collect(Collectors.toList());

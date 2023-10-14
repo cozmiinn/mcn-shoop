@@ -52,17 +52,20 @@ public class CartController {
     }
 
     @PostMapping("/{id}/entry/{entryId}")
-    public ResponseEntity<Object> addEntryToCart(@PathVariable("id") Long id, @PathVariable("entryId") Long entryId, CartEntryDTO cartEntryDTO){
-       return cartService.addEntryToCart(id, entryId, cartEntryDTO);
+    public ResponseEntity<CartEntryDTO> addEntryToCart(@PathVariable("id") Long id, @PathVariable("entryId") Long entryId, @RequestBody CartEntryDTO cartEntryDTO){
+        CartEntryDTO entry = cartService.addEntryToCart(id, entryId, cartEntryDTO);
+       return new ResponseEntity<>(entry, HttpStatus.OK);
     }
 
     @PostMapping("/{id}/user/{userId}")
-    public ResponseEntity<Object> addCartToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId, UserDTO userDTO){
-       return cartService.addCartToUser(id, userId, userDTO);
+    public ResponseEntity<UserDTO> addCartToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId, @RequestBody UserDTO userDTO){
+        UserDTO users = cartService.addCartToUser(id, userId, userDTO);
+       return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PostMapping("/{id}/voucher/{voucherId}")
-    public ResponseEntity<String> addVoucherToCart(@PathVariable("id") Long id, @PathVariable("voucherId") Long voucherId, VoucherDTO voucherDTO){
-        return cartService.addVoucherToCart(id, voucherId, voucherDTO);
+    public ResponseEntity<VoucherDTO> addVoucherToCart(@PathVariable("id") Long id, @PathVariable("voucherId") Long voucherId, @RequestBody VoucherDTO voucherDTO){
+        VoucherDTO vouchers = cartService.addVoucherToCart(id, voucherId, voucherDTO);
+        return new ResponseEntity<>(vouchers, HttpStatus.OK);
     }
 }

@@ -50,7 +50,8 @@ public class ProductVariantService {
 
     public List<ProductVariantDTO> getProductVariants(){
         List<ProductVariant> getProductVariants = productVariantRepository.findAll();
-        List<ProductVariantDTO> productVariantDTOS = getProductVariants
+        List<ProductVariantDTO> productVariantDTOS;
+        productVariantDTOS = getProductVariants
                 .stream()
                 .map(productVariantStructMapper::productVariantToProductVariantDto)
                 .collect(Collectors.toList());

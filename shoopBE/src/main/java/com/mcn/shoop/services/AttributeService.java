@@ -7,6 +7,7 @@ import com.mcn.shoop.entities.AttributeValues;
 import com.mcn.shoop.mappers.AttributeStructMapper;
 import com.mcn.shoop.mappers.AttributeValuesStructMapper;
 import com.mcn.shoop.repositories.AttributeRepository;
+import com.mcn.shoop.repositories.AttributeValuesRepository;
 import com.mcn.shoop.validators.AttributeValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,26 +15,28 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AttributeService {
 
     private final AttributeRepository attributeRepository;
-    private final AttributeValuesService attributeValuesService;
     private final AttributeStructMapper attributeStructMapper;
     private final AttributeValuesStructMapper attributeValuesStructMapper;
+    private final AttributeValuesRepository attributeValuesRepository;
 
-    public AttributeService(AttributeRepository attributeRepository, AttributeValuesService attributeValuesService, AttributeStructMapper attributeStructMapper, AttributeValuesStructMapper attributeValuesStructMapper) {
+    public AttributeService(AttributeRepository attributeRepository, AttributeStructMapper attributeStructMapper, AttributeValuesStructMapper attributeValuesStructMapper, AttributeValuesRepository attributeValuesRepository) {
         this.attributeRepository = attributeRepository;
-        this.attributeValuesService = attributeValuesService;
         this.attributeStructMapper = attributeStructMapper;
         this.attributeValuesStructMapper = attributeValuesStructMapper;
+        this.attributeValuesRepository = attributeValuesRepository;
     }
 
     public List<AttributeDTO> getAttributes() {
         List<Attribute> getAttributes = attributeRepository.findAll();
-        List<AttributeDTO> attributeDTOS = getAttributes
+        List<AttributeDTO> attributeDTOS;
+        attributeDTOS = getAttributes
                 .stream()
                 .map(attributeStructMapper::attributeToAttributeDto)
                 .collect(Collectors.toList());
@@ -66,15 +69,17 @@ public class AttributeService {
         attributeRepository.deleteById(id);
     }
 
-    public void addValuesToAttribute(Long id, AttributeValuesDTO attributeValuesDTO) {
-        Attribute attribute = attributeRepository.findById(id).orElse(null);
-        AttributeValues attributeValues = attributeValuesStructMapper.attributeValuesDtoToAttributeValues(attributeValuesDTO);
-        if (attribute != null) {
-            attributeValues.setAttribute(attribute);
-            attributeValuesService.createAttributeValues(attributeValuesDTO);
-        } else {
+    public AttributeValuesDTO addValuesToAttribute(Long id, AttributeValuesDTO attributeValuesDTO) {
+        Optional<Attribute> attribute = attributeRepository.findById(id);
+        if (attribute.isPresent()) {
             new ResponseEntity<>("Attribute not found!", HttpStatus.NOT_FOUND);
         }
-        attributeValuesStructMapper.attributeValuesToAttributeValuesDto(attributeValues);
+
+        AttributeValues attributeValues = attributeValuesStructMapper.attributeValuesDtoToAttributeValues(attributeValuesDTO);
+        attributeValues.setAttribute(attribute.get());
+        attributeValues = attributeValuesRepository.save(attributeValues);
+
+        return attributeValuesStructMapper.attributeValuesToAttributeValuesDto(attributeValues);
     }
+
 }

@@ -26,7 +26,8 @@ public class CardDetailsService {
 
     public List<CardDetailsDTO> getCards(){
         List<CardDetails> getCards = cardDetailsRepository.findAll();
-        List<CardDetailsDTO> cardDetailsDTOS = getCards
+        List<CardDetailsDTO> cardDetailsDTOS;
+        cardDetailsDTOS = getCards
                 .stream()
                 .map(cardStructMapper::cardToCardDto)
                 .collect(Collectors.toList());

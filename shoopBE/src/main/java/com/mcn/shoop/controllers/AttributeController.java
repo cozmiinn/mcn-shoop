@@ -51,8 +51,8 @@ public class AttributeController {
     }
 
     @PostMapping("/{id}/values")
-    public ResponseEntity<Object> addValuesToAttribute(@PathVariable("id") Long id, @RequestBody AttributeValuesDTO attributeValuesDTO){
-        attributeService.addValuesToAttribute(id, attributeValuesDTO);
-        return new ResponseEntity<>("Values added to the attribute successfully", HttpStatus.OK);
+    public ResponseEntity<AttributeValuesDTO> addValuesToAttribute(@PathVariable("id") Long id, @RequestBody AttributeValuesDTO attributeValuesDTO){
+        AttributeValuesDTO attributeValues = attributeService.addValuesToAttribute(id, attributeValuesDTO);
+        return new ResponseEntity<>(attributeValues, HttpStatus.OK);
     }
 }

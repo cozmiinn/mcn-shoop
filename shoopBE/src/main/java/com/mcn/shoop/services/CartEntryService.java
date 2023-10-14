@@ -24,7 +24,8 @@ public class CartEntryService {
 
     public List<CartEntryDTO> getCartEntrys(){
         List<CartEntry> getCartEntrys = cartEntryRepository.findAll();
-        List<CartEntryDTO> cartEntryDTOS = getCartEntrys
+        List<CartEntryDTO> cartEntryDTOS;
+        cartEntryDTOS = getCartEntrys
                 .stream()
                 .map(cartEntryStructMapper::cartEntryToCartEntryDto)
                 .collect(Collectors.toList());

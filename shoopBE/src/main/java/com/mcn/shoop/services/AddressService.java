@@ -24,7 +24,8 @@ public class AddressService {
 
     public List<AddressDTO> getAddresss(){
         List<Address> getAddresss = addressRepository.findAll();
-        List<AddressDTO> addressDTOS = getAddresss
+        List<AddressDTO> addressDTOS;
+        addressDTOS = getAddresss
                 .stream()
                 .map(addressStructMapper::addressToAddressDto)
                 .collect(Collectors.toList());

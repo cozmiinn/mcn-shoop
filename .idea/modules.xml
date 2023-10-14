@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/mcn-shoop.iml" filepath="$PROJECT_DIR$/.idea/mcn-shoop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shoopBE/shoop.iml" filepath="$PROJECT_DIR$/shoopBE/shoop.iml" />
+    </modules>
+  </component>
+</project>

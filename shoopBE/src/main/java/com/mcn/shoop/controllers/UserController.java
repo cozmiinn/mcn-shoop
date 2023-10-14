@@ -51,19 +51,15 @@ public class UserController {
         return new ResponseEntity<>("User is deleted successfully", HttpStatus.OK);
     }
 
-
-
-//    @PostMapping("/{id}/address")
-//    public ResponseEntity<Object> addAddressToUser(@PathVariable("id") Long id, @RequestBody AddressDTO addressDTO) {
-//        userService.addAddressToUser(id, addressDTO);
-//        return new ResponseEntity<>("Address added to the user successfully", HttpStatus.OK);
-//    }
-
-
-    @PostMapping("/{id}/cards")
-    public ResponseEntity<Object> addCardToUser(@PathVariable("id") Long id, @RequestBody CardDetails cardDetails){
-        userService.addCardToUser(id, cardDetails);
-        return new ResponseEntity<>("Payment card added to user successfully!", HttpStatus.OK);
+    @PostMapping("/{id}/address")
+    public ResponseEntity<AddressDTO> addAddressToUser(@PathVariable("id") Long id, @RequestBody AddressDTO addressDTO) {
+        AddressDTO address = userService.addAddressToUser(id, addressDTO);
+        return new ResponseEntity<>(address, HttpStatus.OK);
     }
 
+    @PostMapping("/{id}/cards")
+    public ResponseEntity<CardDetailsDTO> addCardToUser(@PathVariable("id") Long id, @RequestBody CardDetailsDTO cardDetailsDTO){
+        CardDetailsDTO cardDetails = userService.addCardToUser(id, cardDetailsDTO);
+        return new ResponseEntity<>(cardDetails, HttpStatus.OK);
+    }
 }

@@ -25,7 +25,8 @@ public class VouchersService {
 
     public List<VoucherDTO> getVoucherss(){
         List<Voucher> getVouchers = vouchersRepository.findAll();
-        List<VoucherDTO> voucherDTOS = getVouchers
+        List<VoucherDTO> voucherDTOS;
+        voucherDTOS = getVouchers
                 .stream()
                 .map(voucherStructMapper::voucherToVoucherDto)
                 .collect(Collectors.toList());
@@ -47,6 +48,8 @@ public class VouchersService {
     public VoucherDTO updateVouchers(Long id, VoucherDTO voucherDTO){
         Voucher currentVouchers = vouchersRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Voucher with id " + id + " not found!"));
         currentVouchers.setCod(voucherDTO.getCod());
+        currentVouchers.setClientName(voucherDTO.getClientName());
+        currentVouchers.setDiscount(voucherDTO.getDiscount());
 
         currentVouchers = vouchersRepository.save(currentVouchers);
 

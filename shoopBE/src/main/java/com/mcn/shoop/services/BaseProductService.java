@@ -7,6 +7,7 @@ import com.mcn.shoop.entities.ProductVariant;
 import com.mcn.shoop.mappers.BaseProductStructMapper;
 import com.mcn.shoop.mappers.ProductVariantStructMapper;
 import com.mcn.shoop.repositories.BaseProductRepository;
+import com.mcn.shoop.repositories.ProductVariantRepository;
 import com.mcn.shoop.validators.BaseProductValidator;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +16,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class BaseProductService {
 
     private final BaseProductRepository baseProductRepository;
-    private final ProductVariantService productVariantService;
     private final ProductVariantStructMapper productVariantStructMapper;
     private final BaseProductStructMapper baseProductStructMapper;
+    private final ProductVariantRepository productVariantRepository;
 
     @Autowired
-    public BaseProductService(BaseProductRepository baseProductRepository, ProductVariantService productVariantService, ProductVariantStructMapper productVariantStructMapper, BaseProductStructMapper baseProductStructMapper) {
+    public BaseProductService(BaseProductRepository baseProductRepository, ProductVariantStructMapper productVariantStructMapper, BaseProductStructMapper baseProductStructMapper, ProductVariantRepository productVariantRepository) {
         this.baseProductRepository = baseProductRepository;
-        this.productVariantService = productVariantService;
         this.productVariantStructMapper = productVariantStructMapper;
         this.baseProductStructMapper = baseProductStructMapper;
+        this.productVariantRepository = productVariantRepository;
     }
 
     public List<BaseProductDTO> getBaseProducts(){
         List<BaseProduct> getBaseProduct = baseProductRepository.findAll();
-        List<BaseProductDTO> baseProductDTOS = getBaseProduct
+        List<BaseProductDTO> baseProductDTOS;
+        baseProductDTOS = getBaseProduct
                 .stream()
                 .map(baseProductStructMapper::baseProductToBaseProductDto)
                 .collect(Collectors.toList());
@@ -68,15 +71,16 @@ public class BaseProductService {
         baseProductRepository.deleteById(id);
     }
 
-    public void addVariantToProduct(Long id, ProductVariantDTO productVariantDTO){
-        BaseProduct baseProduct = baseProductRepository.findById(id).orElse(null);
-        ProductVariant productVariant = productVariantStructMapper.productDtoToProductVariant(productVariantDTO);
-        if(baseProduct != null) {
-            productVariant.setBaseProduct(baseProduct);
-            productVariantService.createProductVariant(productVariantDTO);
-        }else{
+    public ProductVariantDTO addVariantToProduct(Long id, ProductVariantDTO productVariantDTO){
+        Optional<BaseProduct> baseProduct = baseProductRepository.findById(id);
+        if(baseProduct.isPresent()) {
             new ResponseEntity<>("Base product not found!", HttpStatus.NOT_FOUND);
         }
-        productVariantStructMapper.productVariantToProductVariantDto(productVariant);
+
+        ProductVariant productVariant = productVariantStructMapper.productDtoToProductVariant(productVariantDTO);
+        productVariant.setBaseProduct(baseProduct.get());
+        productVariant = productVariantRepository.save(productVariant);
+
+        return productVariantStructMapper.productVariantToProductVariantDto(productVariant);
     }
 }
