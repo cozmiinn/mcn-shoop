@@ -12,6 +12,7 @@ import com.mcn.shoop.validators.AttributeValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -59,7 +60,6 @@ public class AttributeService {
 
         Attribute currentAttribute = attributeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Attribute with id " + id + " not found!"));
         currentAttribute.setAttribute(attributeDTO.getAttribute());
-
         currentAttribute = attributeRepository.save(currentAttribute);
 
         return attributeStructMapper.attributeToAttributeDto(currentAttribute);
@@ -69,14 +69,18 @@ public class AttributeService {
         attributeRepository.deleteById(id);
     }
 
-    public AttributeValuesDTO addValuesToAttribute(Long id, AttributeValuesDTO attributeValuesDTO) {
-        Optional<Attribute> attribute = attributeRepository.findById(id);
-        if (attribute.isPresent()) {
+    public AttributeValuesDTO addValuesToAttribute(@PathVariable("id") Long attributeId, @PathVariable("id") Long valuesId) {
+        Attribute attribute = attributeRepository.findById(attributeId).orElse(null);
+        if (attribute == null) {
             new ResponseEntity<>("Attribute not found!", HttpStatus.NOT_FOUND);
         }
 
-        AttributeValues attributeValues = attributeValuesStructMapper.attributeValuesDtoToAttributeValues(attributeValuesDTO);
-        attributeValues.setAttribute(attribute.get());
+        AttributeValues attributeValues = attributeValuesRepository.findById(valuesId).orElse(null);
+        if(attributeValues == null){
+            new ResponseEntity<>("Values not found!", HttpStatus.NOT_FOUND);
+        }
+
+        attributeValues.setAttribute(attribute);
         attributeValues = attributeValuesRepository.save(attributeValues);
 
         return attributeValuesStructMapper.attributeValuesToAttributeValuesDto(attributeValues);

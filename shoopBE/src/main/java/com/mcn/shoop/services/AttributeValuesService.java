@@ -49,7 +49,6 @@ public class AttributeValuesService {
 
         AttributeValues currentAttributeValues = attributeValuesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Values with id " + id + " not found!"));
         currentAttributeValues.setValue(attributeValuesDTO.getValue());
-
         currentAttributeValues = attributeValuesRepository.save(currentAttributeValues);
 
         return attributeValuesStructMapper.attributeValuesToAttributeValuesDto(currentAttributeValues);

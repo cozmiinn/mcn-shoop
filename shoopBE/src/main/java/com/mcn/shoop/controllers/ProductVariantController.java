@@ -1,10 +1,10 @@
 package com.mcn.shoop.controllers;
 
 import com.mcn.shoop.dtos.AttributeDTO;
-import com.mcn.shoop.dtos.CartEntryDTO;
 import com.mcn.shoop.dtos.ProductVariantDTO;
 import com.mcn.shoop.services.ProductVariantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,13 +49,9 @@ public class ProductVariantController {
     }
 
     @PostMapping("/{id}/attribute/{attributeId}")
-    public ResponseEntity<Object> addAttributesToProduct(@PathVariable("id") Long id, @PathVariable("attributeId") Long attributeId, AttributeDTO attributeDTO) {
-        return productVariantService.addAttributesToProduct(id, attributeId, attributeDTO);
-    }
-
-    @PostMapping("/{id}/entry/{entryId}")
-    public ResponseEntity<Object> addProductToEntry(@PathVariable("id") Long id, @PathVariable("entryId") Long entryId, CartEntryDTO cartEntryDTO) {
-        return productVariantService.addProductToEntry(id, entryId, cartEntryDTO);
+    public ResponseEntity<AttributeDTO> addAttributesToProduct(@PathVariable("id") Long id, @PathVariable("attributeId") Long attributeId) {
+        AttributeDTO attributes = productVariantService.addAttributesToProduct(id, attributeId);
+        return new ResponseEntity<>(attributes, HttpStatus.OK);
     }
 }
 

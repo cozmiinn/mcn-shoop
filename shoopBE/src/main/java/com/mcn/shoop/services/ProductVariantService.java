@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,42 +89,24 @@ public class ProductVariantService {
     }
 
 
-    public ResponseEntity<Object> addAttributesToProduct(Long id, Long attributeId, AttributeDTO attributeDTO) {
-        ProductVariant productVariant = productVariantRepository.findById(id).orElse(null);
+    public AttributeDTO addAttributesToProduct(@PathVariable("id") Long productVariantId, @PathVariable("id") Long attributeId) {
+        ProductVariant productVariant = productVariantRepository.findById(productVariantId).orElse(null);
         if (productVariant == null) {
-            return new ResponseEntity<>("Product variant not found!", HttpStatus.NOT_FOUND);
+            new ResponseEntity<>("Product variant not found!", HttpStatus.NOT_FOUND);
         }
         Attribute attributes = attributeRepository.findById(attributeId).orElse(null);
-        Attribute attribute = attributeStructMapper.attributeDtoToAttribute(attributeDTO);
         if (attributes == null) {
-            return new ResponseEntity<>("Attribute is null!", HttpStatus.BAD_REQUEST);
+            new ResponseEntity<>("Attribute is null!", HttpStatus.BAD_REQUEST);
         }
-        if (productVariant.getAttribute().contains(attributes)) {
-            return new ResponseEntity<>("Attribute already exists!", HttpStatus.BAD_REQUEST);
+
+        if (productVariant != null && productVariant.getAttribute().contains(attributes)) {
+            new ResponseEntity<>("Attribute already exists!", HttpStatus.BAD_REQUEST);
         }
         List<ProductVariant> productVariants = new ArrayList<>();
         productVariants.add(productVariant);
-        productVariant.getAttribute().add(attributes);
         attributes.setVariants(productVariants);
-        attributeStructMapper.attributeToAttributeDto(attribute);
-        attributeService.createAttribute(attributeDTO);
-        return new ResponseEntity<>("Attributes added to the product successfully!", HttpStatus.OK);
-    }
+        attributes = attributeRepository.save(attributes);
 
-    public ResponseEntity<Object> addProductToEntry(Long id, Long entryId, CartEntryDTO cartEntryDTO){
-        ProductVariant productVariant = productVariantRepository.findById(id).orElse(null);
-        if(productVariant == null){
-            return new ResponseEntity<>("Entry not found!", HttpStatus.NOT_FOUND);
-        }
-        CartEntry cartEntry = cartEntryRepository.findById(entryId).orElse(null);
-        CartEntry cartEntry1 = cartEntryStructMapper.cartEntryDtoToCartEntry(cartEntryDTO);
-        if(cartEntry == null){
-            return new ResponseEntity<>("Product not found!", HttpStatus.NOT_FOUND);
-        }
-        productVariant.getCartEntries().add(cartEntry);
-        cartEntry.setProduct(productVariant);
-        cartEntryStructMapper.cartEntryToCartEntryDto(cartEntry1);
-        cartEntryService.createCartEntry(cartEntryDTO);
-        return new ResponseEntity<>("Product added to the entry successfully!", HttpStatus.OK);
+        return attributeStructMapper.attributeToAttributeDto(attributes);
     }
 }

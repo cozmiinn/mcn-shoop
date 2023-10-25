@@ -1,6 +1,5 @@
 package com.mcn.shoop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,13 +18,10 @@ public class CartEntry {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
-    @JsonIgnore
     private Cart cart;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_variant_id")
-    @JsonIgnore
-    private ProductVariant product;
+    @OneToOne(mappedBy = "cartEntry")
+    private ProductVariant variants;
 
     @Column(name="quantity")
     private int quantity;

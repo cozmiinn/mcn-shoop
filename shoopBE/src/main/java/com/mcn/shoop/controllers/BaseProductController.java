@@ -51,9 +51,9 @@ public class BaseProductController {
         return new ResponseEntity<>("Base product is deleted successfully", HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/variant")
-    public ResponseEntity<ProductVariantDTO> addVariantToProduct(@PathVariable("id") Long id, @RequestBody ProductVariantDTO productVariantDTO){
-        ProductVariantDTO productVariant = baseProductService.addVariantToProduct(id, productVariantDTO);
+    @PostMapping("/{id}/variant/{productVariantId}")
+    public ResponseEntity<ProductVariantDTO> addVariantToProduct(@PathVariable("id") Long id, @PathVariable("productVariantId") Long productVariantId){
+        ProductVariantDTO productVariant = baseProductService.addVariantToProduct(id, productVariantId);
         return new ResponseEntity<>(productVariant, HttpStatus.OK);
     }
 }

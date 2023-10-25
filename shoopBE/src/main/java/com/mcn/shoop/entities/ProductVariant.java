@@ -44,6 +44,10 @@ public class ProductVariant{
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "variants")
     private List<Attribute> attribute;
 
-    @OneToMany(mappedBy = "product")
-    private List<CartEntry> cartEntries;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "entry_to_variants",
+            joinColumns = @JoinColumn(name = "product_variant_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "cart_entry_id", referencedColumnName = "id"))
+    private CartEntry cartEntry;
 }

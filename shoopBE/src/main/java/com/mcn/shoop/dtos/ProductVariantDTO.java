@@ -16,5 +16,4 @@ public class ProductVariantDTO {
     private int availableQuantity;
     private Date addedDate;
     private List<AttributeDTO> attribute;
-    private List<CartEntryDTO> cartEntries;
 }

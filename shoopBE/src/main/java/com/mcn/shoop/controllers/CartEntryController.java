@@ -1,6 +1,7 @@
 package com.mcn.shoop.controllers;
 
 import com.mcn.shoop.dtos.CartEntryDTO;
+import com.mcn.shoop.dtos.ProductVariantDTO;
 import com.mcn.shoop.services.CartEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,5 +47,11 @@ public class CartEntryController {
     public ResponseEntity<String> deleteCartEntry(@PathVariable("id") Long id){
         cartEntryService.deleteCartEntry(id);
         return new ResponseEntity<>("Cart is deleted successfully!", HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/product/{productId}")
+    public ResponseEntity<ProductVariantDTO> addProductToEntry(@PathVariable("id") Long id, @PathVariable("productId") Long productId) {
+        ProductVariantDTO variants = cartEntryService.addProductToEntry(id, productId);
+        return new ResponseEntity<>(variants, HttpStatus.OK);
     }
 }

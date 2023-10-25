@@ -83,29 +83,28 @@ public class CartService {
         cartRepository.deleteById(id);
     }
 
-    public UserDTO addCartToUser(Long id, Long userId, UserDTO userDTO) {
-        Cart cart = cartRepository.findById(id).orElse(null);
+    public UserDTO addCartToUser(@PathVariable("id") Long cartId, @PathVariable("id") Long userId) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
         if (cart == null) {
             new ResponseEntity<>("Cart not found!", HttpStatus.NOT_FOUND);
         }
-        User users = userRepository.findById(userId).orElse(null);
-        if (users == null) {
+        User user = userRepository.findById(userId).orElse(null);
+        if(user == null){
             new ResponseEntity<>("User not found!", HttpStatus.NOT_FOUND);
         }
-        if (cart != null && cart.getUser().contains(users)) {
+
+        if (cart != null && cart.getUser().contains(user)) {
             new ResponseEntity<>("Cart already exists!", HttpStatus.BAD_REQUEST);
         }
-        User user1 = userStructMapper.userDtoToUser(userDTO);
-        user1.setCart(cart);
-        cart.getUser().add(users);
-        user1 = userRepository.save(user1);
+        user.setCart(cart);
+        user = userRepository.save(user);
 
-        return userStructMapper.userToUserDto(user1);
+        return userStructMapper.userToUserDto(user);
     }
 
 
-    public CartEntryDTO addEntryToCart(Long id, Long entryId, CartEntryDTO cartEntryDTO) {
-        Cart cart = cartRepository.findById(id).orElse(null);
+    public CartEntryDTO addEntryToCart(@PathVariable("id") Long cartId, @PathVariable("id") Long entryId) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
         if (cart == null) {
             new ResponseEntity<>("Cart not found!", HttpStatus.NOT_FOUND);
         }
@@ -113,20 +112,19 @@ public class CartService {
         if (cartEntry == null) {
             new ResponseEntity<>("Entry not found!", HttpStatus.NOT_FOUND);
         }
+
         if (cart != null && cart.getCartEntries() != null && cart.getCartEntries().contains(cartEntry)) {
             new ResponseEntity<>("Entry already exists!", HttpStatus.BAD_REQUEST);
         }
-        CartEntry cartEntry1 = cartEntryStructMapper.cartEntryDtoToCartEntry(cartEntryDTO);
-        cartEntry1.setCart(cart);
-        cart.getCartEntries().add(cartEntry);
-        cartEntry1 = cartEntryRepository.save(cartEntry1);
+        cartEntry.setCart(cart);
+        cartEntry = cartEntryRepository.save(cartEntry);
 
-        return cartEntryStructMapper.cartEntryToCartEntryDto(cartEntry1);
+        return cartEntryStructMapper.cartEntryToCartEntryDto(cartEntry);
     }
 
 
-    public VoucherDTO addVoucherToCart(Long id, Long voucherId, VoucherDTO voucherDTO) {
-        Cart cart = cartRepository.findById(id).orElse(null);
+    public VoucherDTO addVoucherToCart(@PathVariable("cartId") Long cartId, @PathVariable("id") Long voucherId) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
         if (cart == null) {
             new ResponseEntity<>("Cart not found!", HttpStatus.NOT_FOUND);
         }
@@ -139,14 +137,9 @@ public class CartService {
         if (cart != null && cart.getVouchers() != null && cart.getVouchers().contains(voucher)) {
             new ResponseEntity<>("Voucher already exists!", HttpStatus.BAD_REQUEST);
         }
-        Voucher voucher1 = voucherStructMapper.voucherDtoToVoucher(voucherDTO);
-        voucher1.setCart(cart);
-        cart.getVouchers().add(voucher1);
-        voucher1 = vouchersRepository.save(voucher1);
+        voucher.setCart(cart);
+        voucher = vouchersRepository.save(voucher);
 
-
-        return voucherStructMapper.voucherToVoucherDto(voucher1);
-
+        return voucherStructMapper.voucherToVoucherDto(voucher);
     }
 }
-

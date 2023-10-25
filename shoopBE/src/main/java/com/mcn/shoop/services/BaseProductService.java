@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,7 +61,6 @@ public class BaseProductService {
 
         BaseProduct currentBaseProduct = baseProductRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Base product with id " + id + " not found!"));
         currentBaseProduct.setType(baseProductDTO.getType());
-
         currentBaseProduct = baseProductRepository.save(currentBaseProduct);
 
         return baseProductStructMapper.baseProductToBaseProductDto(currentBaseProduct);
@@ -71,14 +70,22 @@ public class BaseProductService {
         baseProductRepository.deleteById(id);
     }
 
-    public ProductVariantDTO addVariantToProduct(Long id, ProductVariantDTO productVariantDTO){
-        Optional<BaseProduct> baseProduct = baseProductRepository.findById(id);
-        if(baseProduct.isPresent()) {
+    public ProductVariantDTO addVariantToProduct(@PathVariable("id") Long baseProductId, @PathVariable("id") Long productVariantId){
+        BaseProduct baseProduct = baseProductRepository.findById(baseProductId).orElse(null);
+        if(baseProduct == null) {
             new ResponseEntity<>("Base product not found!", HttpStatus.NOT_FOUND);
         }
 
-        ProductVariant productVariant = productVariantStructMapper.productDtoToProductVariant(productVariantDTO);
-        productVariant.setBaseProduct(baseProduct.get());
+        ProductVariant productVariant = productVariantRepository.findById(productVariantId).orElse(null);
+        if(productVariant == null){
+            new ResponseEntity<>("Product variant not found!", HttpStatus.NOT_FOUND);
+        }
+
+        if(baseProduct != null && baseProduct.getProductVariants().contains(productVariant)){
+            new ResponseEntity<>("Base product already exists!", HttpStatus.BAD_REQUEST);
+        }
+
+        productVariant.setBaseProduct(baseProduct);
         productVariant = productVariantRepository.save(productVariant);
 
         return productVariantStructMapper.productVariantToProductVariantDto(productVariant);

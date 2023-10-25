@@ -50,9 +50,9 @@ public class AttributeController {
         return new ResponseEntity<>("Attribute is deleted successfully", HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/values")
-    public ResponseEntity<AttributeValuesDTO> addValuesToAttribute(@PathVariable("id") Long id, @RequestBody AttributeValuesDTO attributeValuesDTO){
-        AttributeValuesDTO attributeValues = attributeService.addValuesToAttribute(id, attributeValuesDTO);
+    @PostMapping("/{id}/values/{valuesId}")
+    public ResponseEntity<AttributeValuesDTO> addValuesToAttribute(@PathVariable("id") Long id, @PathVariable("id") Long valuesId){
+        AttributeValuesDTO attributeValues = attributeService.addValuesToAttribute(id, valuesId);
         return new ResponseEntity<>(attributeValues, HttpStatus.OK);
     }
 }

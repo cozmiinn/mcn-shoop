@@ -3,8 +3,6 @@ package com.mcn.shoop.controllers;
 import com.mcn.shoop.dtos.AddressDTO;
 import com.mcn.shoop.dtos.CardDetailsDTO;
 import com.mcn.shoop.dtos.UserDTO;
-import com.mcn.shoop.entities.Address;
-import com.mcn.shoop.entities.CardDetails;
 import com.mcn.shoop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

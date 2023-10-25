@@ -51,21 +51,21 @@ public class CartController {
         return new ResponseEntity<>("Cart is deleted successfully!", HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/entry/{entryId}")
-    public ResponseEntity<CartEntryDTO> addEntryToCart(@PathVariable("id") Long id, @PathVariable("entryId") Long entryId, @RequestBody CartEntryDTO cartEntryDTO){
-        CartEntryDTO entry = cartService.addEntryToCart(id, entryId, cartEntryDTO);
-       return new ResponseEntity<>(entry, HttpStatus.OK);
-    }
-
     @PostMapping("/{id}/user/{userId}")
-    public ResponseEntity<UserDTO> addCartToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId, @RequestBody UserDTO userDTO){
-        UserDTO users = cartService.addCartToUser(id, userId, userDTO);
+    public ResponseEntity<UserDTO> addCartToUser(@PathVariable("id") Long cartId, @PathVariable("userId") Long userId){
+        UserDTO users = cartService.addCartToUser(cartId, userId);
        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @PostMapping("/{id}/entry/{entryId}")
+    public ResponseEntity<CartEntryDTO> addEntryToCart(@PathVariable("id") Long cartId, @PathVariable("entryId") Long entryId){
+        CartEntryDTO entry = cartService.addEntryToCart(cartId, entryId);
+        return new ResponseEntity<>(entry, HttpStatus.OK);
+    }
+
     @PostMapping("/{id}/voucher/{voucherId}")
-    public ResponseEntity<VoucherDTO> addVoucherToCart(@PathVariable("id") Long id, @PathVariable("voucherId") Long voucherId, @RequestBody VoucherDTO voucherDTO){
-        VoucherDTO vouchers = cartService.addVoucherToCart(id, voucherId, voucherDTO);
+    public ResponseEntity<VoucherDTO> addVoucherToCart(@PathVariable("id") Long cartId, @PathVariable("voucherId") Long voucherId){
+        VoucherDTO vouchers = cartService.addVoucherToCart(cartId, voucherId);
         return new ResponseEntity<>(vouchers, HttpStatus.OK);
     }
 }
