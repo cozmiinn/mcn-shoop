@@ -10,7 +10,7 @@ spring:
     username: root
     password: cosmin99
   jpa:
-    hibernate.ddl-auto: validate
+    hibernate.ddl-auto: create-drop
     generate-ddl: true
     show-sql: true
 

@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import java.util.List;
 
-
 @Entity
 @Getter
 @Setter
@@ -15,7 +14,7 @@ import java.util.List;
 @Table(name="base_product")
 public class BaseProduct {
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="type", length = 50)
@@ -23,5 +22,9 @@ public class BaseProduct {
 
     @OneToMany(mappedBy = "baseProduct")
     private List<ProductVariant> productVariants;
+
+    @ManyToOne
+    @JoinColumn(name = "subcategory_id", nullable = false)
+    private Subcategory subcategory;
 
 }
