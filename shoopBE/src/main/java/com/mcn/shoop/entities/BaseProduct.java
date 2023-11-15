@@ -25,6 +25,6 @@ public class BaseProduct {
 
     @ManyToOne
     @JoinColumn(name = "subcategory_id", nullable = false)
-    private Subcategory subcategory;
+    private SubCategory subcategory;
 
 }

@@ -45,7 +45,7 @@ public class SubcategoryController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteSubcategory(@PathVariable("id") Long id){
         subcategoryService.deleteSubcategory(id);
-        return new ResponseEntity<>("Subcategory is deleted successfully!", HttpStatus.OK);
+        return new ResponseEntity<>("SubCategory is deleted successfully!", HttpStatus.OK);
     }
 
     @PostMapping("/{id}/base/{baseProductId}")

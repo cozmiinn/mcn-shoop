@@ -1,7 +1,6 @@
 package com.mcn.shoop.validators;
 
 import com.mcn.shoop.dtos.BaseProductDTO;
-import com.mcn.shoop.entities.BaseProduct;
 import io.micrometer.common.util.StringUtils;
 
 public class BaseProductValidator {

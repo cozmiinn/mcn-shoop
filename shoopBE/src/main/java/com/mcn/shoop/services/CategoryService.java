@@ -3,7 +3,7 @@ package com.mcn.shoop.services;
 import com.mcn.shoop.dtos.CategoryDTO;
 import com.mcn.shoop.dtos.SubcategoryDTO;
 import com.mcn.shoop.entities.Category;
-import com.mcn.shoop.entities.Subcategory;
+import com.mcn.shoop.entities.SubCategory;
 import com.mcn.shoop.mappers.CategoryStructMapper;
 import com.mcn.shoop.mappers.SubcategoryStructMapper;
 import com.mcn.shoop.repositories.CategoryRepository;
@@ -73,9 +73,9 @@ public class CategoryService {
             new ResponseEntity<>("Category not found!", HttpStatus.NOT_FOUND);
         }
 
-        Subcategory Subcategory = subcategoryRepository.findById(subcategoryId).orElse(null);
+        SubCategory Subcategory = subcategoryRepository.findById(subcategoryId).orElse(null);
         if(Subcategory == null){
-            new ResponseEntity<>("Subcategory not found!", HttpStatus.NOT_FOUND);
+            new ResponseEntity<>("SubCategory not found!", HttpStatus.NOT_FOUND);
         }
 
         if(category != null && category.getSubcategories().contains(Subcategory)){

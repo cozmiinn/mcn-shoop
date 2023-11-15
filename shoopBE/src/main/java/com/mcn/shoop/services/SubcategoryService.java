@@ -2,8 +2,7 @@ package com.mcn.shoop.services;
 
 import com.mcn.shoop.dtos.BaseProductDTO;
 import com.mcn.shoop.dtos.SubcategoryDTO;
-import com.mcn.shoop.entities.BaseProduct;
-import com.mcn.shoop.entities.Subcategory;
+import com.mcn.shoop.entities.SubCategory;
 import com.mcn.shoop.mappers.BaseProductStructMapper;
 import com.mcn.shoop.mappers.SubcategoryStructMapper;
 import com.mcn.shoop.repositories.BaseProductRepository;
@@ -34,7 +33,7 @@ public class SubcategoryService {
     }
 
     public List<SubcategoryDTO> getSubcategories(){
-        List<Subcategory> getSubcategories = subcategoryRepository.findAll();
+        List<SubCategory> getSubcategories = subcategoryRepository.findAll();
         List<SubcategoryDTO> subcategoryDTOS;
         subcategoryDTOS = getSubcategories
                 .stream()
@@ -44,18 +43,18 @@ public class SubcategoryService {
     }
 
     public SubcategoryDTO getSubcategory(Long id){
-        Subcategory getCategory2 = subcategoryRepository.findById(id).orElseThrow(null);
+        SubCategory getCategory2 = subcategoryRepository.findById(id).orElseThrow(null);
         return subcategoryStructMapper.subcategoryToSubcategoryDTO(getCategory2);
     }
 
     public SubcategoryDTO createSubcategory(SubcategoryDTO subcategoryDTO){
-        Subcategory Subcategory = subcategoryStructMapper.subcategoryDTOToSubcategory(subcategoryDTO);
-        Subcategory create = subcategoryRepository.save(Subcategory);
+        SubCategory Subcategory = subcategoryStructMapper.subcategoryDTOToSubcategory(subcategoryDTO);
+        SubCategory create = subcategoryRepository.save(Subcategory);
         return subcategoryStructMapper.subcategoryToSubcategoryDTO(create);
     }
 
     public SubcategoryDTO updateSubcategory(Long id, SubcategoryDTO subcategoryDTO){
-        Subcategory currentCategory2 = subcategoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Subcategory with id " + id + " not found!"));
+        SubCategory currentCategory2 = subcategoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("SubCategory with id " + id + " not found!"));
 
         currentCategory2.setSubName(subcategoryDTO.getSubName());
         currentCategory2 = subcategoryRepository.save(currentCategory2);
@@ -68,9 +67,9 @@ public class SubcategoryService {
     }
 
     public BaseProductDTO addBaseToSubcategory(@PathVariable("id") Long subcategoryId, @PathVariable("id") Long baseProductId){
-        Subcategory Subcategory = subcategoryRepository.findById(subcategoryId).orElse(null);
+        SubCategory Subcategory = subcategoryRepository.findById(subcategoryId).orElse(null);
         if(Subcategory == null){
-            new ResponseEntity<>("Subcategory not found!", HttpStatus.NOT_FOUND);
+            new ResponseEntity<>("SubCategory not found!", HttpStatus.NOT_FOUND);
         }
 
         BaseProduct baseProduct = baseProductRepository.findById(baseProductId).orElse(null);
@@ -79,7 +78,7 @@ public class SubcategoryService {
         }
 
         if(Subcategory != null && Subcategory.getBaseProducts().contains(baseProduct)){
-            new ResponseEntity<>("Subcategory already exists!", HttpStatus.BAD_REQUEST);
+            new ResponseEntity<>("SubCategory already exists!", HttpStatus.BAD_REQUEST);
         }
 
         baseProduct.setSubcategory(Subcategory);

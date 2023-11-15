@@ -2,7 +2,6 @@ package com.mcn.shoop.services;
 
 import com.mcn.shoop.dtos.BaseProductDTO;
 import com.mcn.shoop.dtos.ProductVariantDTO;
-import com.mcn.shoop.entities.BaseProduct;
 import com.mcn.shoop.entities.ProductVariant;
 import com.mcn.shoop.mappers.BaseProductStructMapper;
 import com.mcn.shoop.mappers.ProductVariantStructMapper;
