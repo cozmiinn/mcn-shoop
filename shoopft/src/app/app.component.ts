@@ -1,14 +1,24 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {AppModule} from "./app.module";
+import {RouterOutlet} from "@angular/router";
+import {HomepageComponent} from "./components/pages/homepage/homepage.component";
+
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [
+    AppModule,
+    RouterOutlet,
+    HomepageComponent
+  ]
 })
 export class AppComponent {
-  title = 'shoopFT';
+  title: string;
+
+  constructor() {
+    this.title = 'SpeedyShop';
+  }
 }

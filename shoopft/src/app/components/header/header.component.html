@@ -1,0 +1,70 @@
+<div class="body">
+  <nav>
+    <div class='nav-bar'>
+      <input type='checkbox' id='check'/>
+      <label for="check" class="open-menu">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <div class="menu">
+        <div class='logo-menu'>
+          <a href='#'>
+            <img src='../../img/logo.jpg' alt='Logo'/>
+          </a>
+        </div>
+        <div class="level-top">
+          <ul>
+            <!--            <li class="ui-menu-item level0 fullwidth">-->
+            <!--              <a href="#" class="level-top">-->
+            <!--                <span>Tricouri</span>-->
+            <!--              </a>-->
+            <!--              &lt;!&ndash;              <i class="fa fa-chevron-right"></i>&ndash;&gt;-->
+            <!--            </li>-->
+            <li class="ui-menu-item level0 fullwidth parent">
+              <a *ngFor="let products of products" href="#" class="level-top">
+                <span>{{ products.type }}</span>
+              </a>
+            </li>
+            <!--            <li class="ui-menu-item level0 fullwidth parent">-->
+            <!--              <a href="#" class="level-top">-->
+            <!--                <span>Telefoane</span>-->
+            <!--              </a>-->
+            <!--            </li>-->
+            <!--            <li class="ui-menu-item level0 fullwidth parent">-->
+            <!--              <a href="#" class="level-top">-->
+            <!--                <span>Tablete</span>-->
+            <!--              </a>-->
+            <!--            </li>-->
+          </ul>
+        </div>
+
+        <label for="check" class="close-menu">
+          <i class="fas fa-times"></i>
+        </label>
+      </div>
+
+      <div class='left-section'>
+        <div class='logo'>
+          <a href='#'>
+            <img src='../../img/logo.jpg' alt='Logo'/>
+          </a>
+        </div>
+      </div>
+      <div class='right-section'>
+        <div class='button-list-user'>
+          <a href="/account" class="logo-account">
+            <img ngSrc="./app/img/account.jpg" alt="account">
+          </a>
+          <a href="/search" class="logo-search">
+            <img ngSrc="./app/img/search.png" alt="search">
+          </a>
+          <a href="/cart" class="logo-cart">
+            <img ngSrc="./app/img/shop.jpg" alt="cart">
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+

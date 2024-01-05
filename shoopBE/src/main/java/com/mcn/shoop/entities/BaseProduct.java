@@ -23,8 +23,8 @@ public class BaseProduct {
     @OneToMany(mappedBy = "baseProduct")
     private List<ProductVariant> productVariants;
 
-    @ManyToOne
-    @JoinColumn(name = "subcategory_id", nullable = false)
-    private SubCategory subcategory;
+//    @ManyToOne
+//    @JoinColumn(name = "subcategory_id", nullable = false)
+//    private Subcategory subcategory;
 
 }
