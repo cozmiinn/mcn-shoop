@@ -6,11 +6,12 @@ import {MatIconModule} from '@angular/material/icon';
 import {BrowserModule} from "@angular/platform-browser";
 import {Data_products} from "../../data/products_data/baseProduct_data/data_products";
 import {Data_productsService} from "../../data/products_data/baseProduct_data/data_products.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatToolbarModule, MatIconModule, NgOptimizedImage],
+  imports: [CommonModule, MatButtonModule, MatToolbarModule, MatIconModule, NgOptimizedImage, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
