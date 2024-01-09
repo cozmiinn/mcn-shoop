@@ -45,14 +45,15 @@
 
       <div class='left-section'>
         <div class='logo'>
-          <a href='#'>
-            <img src='../../img/logo.jpg' alt='Logo'/>
+          <a href=''>
+            <img [src]="'../src/app/img/logo.jpg'" alt='Logo'/>
           </a>
         </div>
       </div>
+
       <div class='right-section'>
         <div class='button-list-user'>
-          <a href="/account" class="logo-account">
+          <a routerLink="/login" class="logo-account">
             <img ngSrc="./app/img/account.jpg" alt="account">
           </a>
           <a href="/search" class="logo-search">

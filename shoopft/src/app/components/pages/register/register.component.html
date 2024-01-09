@@ -1,0 +1,65 @@
+<app-header></app-header>
+<div>
+  <form class="registration-form" (ngSubmit)="handleSubmit()" [formGroup]="registrationForm">
+    <div class="title">Create an account</div>
+
+    <div>
+      <label for="firstName">Name</label>
+      <input type="text" id="firstName" formControlName="firstName" required/>
+    </div>
+
+    <div>
+      <label for="lastName">Last name</label>
+      <input type="text" id="lastName" formControlName="lastName" required/>
+    </div>
+
+    <div>
+      <label for="middleName">Middle Name</label>
+      <input type="text" id="middleName" formControlName="middleName"/>
+    </div>
+
+    <div>
+      <label for="email">Email</label>
+      <input type="email" id="userEmail" formControlName="email" required/>
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input type="password" id="userPass" formControlName="password" required/>
+    </div>
+
+
+    <!--    <div>-->
+    <!--      <label for="streetLine">Street Line</label>-->
+    <!--      <input type="text" id="streetLine" formControlName="streetLine" required>-->
+    <!--    </div>-->
+
+    <!--    <div>-->
+    <!--      <label for="postalCode">Postal code</label>-->
+    <!--      <input type="text" id="postalCode" formControlName="postalCode" required>-->
+    <!--    </div>-->
+
+
+    <!--    <div>-->
+    <!--      <label for="city">City</label>-->
+    <!--      <input type="text" id="city" formControlName="city" required>-->
+    <!--    </div>-->
+
+    <!--    <div>-->
+    <!--      <label for="county">County</label>-->
+    <!--      <input type="text" id="county" formControlName="county" required>-->
+    <!--    </div>-->
+
+    <!--    <div>-->
+    <!--      <label for="country">Country</label>-->
+    <!--      <input type="text" id="country" formControlName="country" required>-->
+    <!--    </div>-->
+
+
+    <button class="register-button" type="submit">Sign up</button>
+    <div class="prompt">
+      You have already an account?
+      <a class="redirect" (click)="handleLoginClick()"> Login</a>
+    </div>
+  </form>
+</div>
