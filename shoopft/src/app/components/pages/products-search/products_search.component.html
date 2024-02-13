@@ -1,0 +1,59 @@
+<app-header></app-header>
+
+<!--<div class="float-container">-->
+<!--  <div class="float-child-left">-->
+<!--    <ul>-->
+<!--      <h2>Product Categories</h2>-->
+<!--      <li (click)="handleCategorySelect('')">All products</li>-->
+<!--      <li *ngFor="let category of categories" (click)="handleCategorySelect(category)">-->
+<!--        {{ category }}-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--  <div class="float-child-right">-->
+<!--    <form class="nosubmit">-->
+<!--      <input class="nosubmit" type="search" placeholder="Search.." (input)="handleSearch($event)"/>-->
+<!--    </form>-->
+<!--    <div class="allProducts">-->
+<!--      <ul>-->
+<!--        <li *ngFor="let product of filtered">-->
+<!--          &lt;!&ndash;          <div *ngFor="let variant of product.productVariants">&ndash;&gt;-->
+<!--          &lt;!&ndash;            <p>{{ variant.name }}</p>&ndash;&gt;-->
+<!--          &lt;!&ndash;            <p>{{ variant.description }}</p>&ndash;&gt;-->
+<!--          &lt;!&ndash;            <p>{{ variant.price }}</p>&ndash;&gt;-->
+<!--          &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--          <app-products-search [product]="product"></app-products-search>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="float-container">
+  <div class="float-child-left">
+    <ul>
+      <h2>Product Categories</h2>
+      <a (click)="handleCategorySelect('')">
+        <li>All</li>
+      </a>
+      <li *ngFor="let category of categories" (click)="handleCategorySelect(category)">
+        {{ category }}
+      </li>
+    </ul>
+  </div>
+  <div class="float-child-right">
+    <form class="nosubmit">
+      <input class="nosubmit" type="search" placeholder="Search.." (input)="handleSearch($event)"/>
+    </form>
+    <div class="allProducts">
+      <ul>
+        <div class="container-6">
+          <li>
+            <app-product *ngFor="let product of filtered" [product]="product.productVariants"></app-product>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -16,9 +16,4 @@ import {HomepageComponent} from "./components/pages/homepage/homepage.component"
   ]
 })
 export class AppComponent {
-  title: string;
-
-  constructor() {
-    this.title = 'SpeedyShop';
-  }
 }

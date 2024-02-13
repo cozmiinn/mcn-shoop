@@ -9,12 +9,20 @@ import {Data_user} from "./data_user";
 })
 export class Data_userService {
 
-  private baseUrl = "http://localhost:8000/api/users";
+  private baseUrl = "http://localhost:8000";
 
   constructor(private http: HttpClient) {
   }
 
   getUsers(): Observable<Data_user[]> {
-    return this.http.get<Data_user[]>(`${this.baseUrl}`);
+    return this.http.get<Data_user[]>(`${this.baseUrl}/api/users`);
+  }
+
+  userSignIn(data: any) {
+    return this.http.get(`${this.baseUrl}/api/users`, data);
+  }
+
+  userSignUp(data: any) {
+    return this.http.post(`${this.baseUrl}/api/users/add`, data);
   }
 }

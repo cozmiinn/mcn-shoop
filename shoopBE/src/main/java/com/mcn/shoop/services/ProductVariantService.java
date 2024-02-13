@@ -1,16 +1,12 @@
 package com.mcn.shoop.services;
 
 import com.mcn.shoop.dtos.AttributeDTO;
-import com.mcn.shoop.dtos.CartEntryDTO;
 import com.mcn.shoop.dtos.ProductVariantDTO;
 import com.mcn.shoop.entities.Attribute;
-import com.mcn.shoop.entities.CartEntry;
 import com.mcn.shoop.entities.ProductVariant;
 import com.mcn.shoop.mappers.AttributeStructMapper;
-import com.mcn.shoop.mappers.CartEntryStructMapper;
 import com.mcn.shoop.mappers.ProductVariantStructMapper;
 import com.mcn.shoop.repositories.AttributeRepository;
-import com.mcn.shoop.repositories.CartEntryRepository;
 import com.mcn.shoop.repositories.ProductVariantRepository;
 import com.mcn.shoop.validators.ProductVariantValidator;
 import jakarta.persistence.EntityNotFoundException;
@@ -29,23 +25,15 @@ public class ProductVariantService {
 
     private final ProductVariantRepository productVariantRepository;
     private final AttributeRepository attributeRepository;
-    private final AttributeService attributeService;
-    private final CartEntryRepository cartEntryRepository;
-    private final CartEntryService cartEntryService;
     private final ProductVariantStructMapper productVariantStructMapper;
-    private final CartEntryStructMapper cartEntryStructMapper;
     private final AttributeStructMapper attributeStructMapper;
 
 
     @Autowired
-    public ProductVariantService(ProductVariantRepository productVariantRepository, AttributeService attributeService, AttributeRepository attributeRepository, CartEntryRepository cartEntryRepository, CartEntryService cartEntryService, ProductVariantStructMapper productVariantStructMapper, CartEntryStructMapper cartEntryStructMapper, AttributeStructMapper attributeStructMapper) {
+    public ProductVariantService(ProductVariantRepository productVariantRepository, AttributeRepository attributeRepository, ProductVariantStructMapper productVariantStructMapper, AttributeStructMapper attributeStructMapper) {
         this.productVariantRepository = productVariantRepository;
-        this.attributeService = attributeService;
         this.attributeRepository = attributeRepository;
-        this.cartEntryRepository = cartEntryRepository;
-        this.cartEntryService = cartEntryService;
         this.productVariantStructMapper = productVariantStructMapper;
-        this.cartEntryStructMapper = cartEntryStructMapper;
         this.attributeStructMapper = attributeStructMapper;
     }
 
