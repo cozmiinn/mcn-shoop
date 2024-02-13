@@ -10,6 +10,8 @@
         <th>Middle Name</th>
         <th>Email</th>
         <th>Phone number</th>
+        <!--        <th>Address</th>-->
+        <!--        <th>Payment cards</th>-->
         </thead>
         <tbody>
         <tr *ngFor="let user of users">
@@ -19,6 +21,8 @@
           <td>{{ user.middleName }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.phoneNumber }}</td>
+          <!--          <td *ngFor="let address of ">{{ address.streetLine }}</td>-->
+          <!--          <td>{{ user.paymentCards }}</td>-->
         </tr>
         </tbody>
       </table>

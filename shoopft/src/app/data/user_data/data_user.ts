@@ -5,4 +5,6 @@ export class Data_user {
   middleName!: string;
   email!: string;
   phoneNumber!: number;
+  password!: string;
+  // address!: Addresses[];
 }

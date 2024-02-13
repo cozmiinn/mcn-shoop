@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {HeaderComponent} from "../../header/header.component";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
+import {Data_userService} from "../../../data/user_data/data_user.service";
 
 @Component({
   selector: 'app-login',
@@ -17,11 +18,14 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private costumer: Data_userService) {
   }
 
-  handleSubmit(): void {
-    //some logic for login
+  handleSubmit(data: object): void {
+    console.warn(data);
+    this.costumer.userSignIn(data).subscribe((result) => {
+      console.log(result);
+    })
   }
 
   handleRegisterClick(): void {

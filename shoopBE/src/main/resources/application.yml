@@ -18,3 +18,7 @@ spring:
   flyway:
     locations:
       - "classpath:db/migration"
+#
+##sendgrid confirmation
+#  sendgrid:
+#    api-key: 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
