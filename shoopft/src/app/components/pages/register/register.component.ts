@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatChipsModule} from "@angular/material/chips";
 import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
@@ -19,7 +19,7 @@ import {Data_user} from "../../../data/user_data/data_user";
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
   firstName: string = '';
   lastName: string = '';
@@ -39,21 +39,21 @@ export class RegisterComponent {
       middleName: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
-      streetLine: ['', Validators.required],
-      postalCode: ['', Validators.required],
-      city: ['', Validators.required],
-      county: ['', Validators.required],
-      country: ['', Validators.required]
+      // streetLine: ['', Validators.required],
+      // postalCode: ['', Validators.required],
+      // city: ['', Validators.required],
+      // county: ['', Validators.required],
+      // country: ['', Validators.required]
     });
   };
 
-  handleSubmit(data: Data_user): void {
+  ngOnInit(): void {
+    this.customer.reloadSeller();
+  }
+
+  signUp(data: Data_user): void {
     console.warn(data);
-    this.customer.userSignUp(data).subscribe((result) => {
-      if (result) {
-        this.router.navigate(['/']).then(r => console.log(r));
-      }
-    });
+    this.customer.userSignUp(data);
   };
 
   handleLoginClick(): void {

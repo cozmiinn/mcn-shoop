@@ -10,6 +10,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {
   DataProductsVariantService
 } from "./data/products_data/productsVariant_data/data-productsVariant.service";
+import {AuthGuard} from "./auth.guard";
 
 @NgModule({
   declarations: [],
