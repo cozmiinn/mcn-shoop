@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="body-login">
-  <form class="login-form" (ngSubmit)="handleSubmit()">
+  <form #signIn="ngForm" class="login-form" (ngSubmit)="handleSubmit(signIn.value)">
     <div class="title">Login</div>
     <div>
       <label for="email">Email:</label>
@@ -8,6 +8,7 @@
         type="email"
         id="email"
         [(ngModel)]="email"
+        name="email"
         required
       />
     </div>
@@ -17,7 +18,9 @@
         type="password"
         id="password"
         [(ngModel)]="password"
+        name="password"
         required
+
       />
     </div>
     <button class="login-button" type="submit">Login</button>

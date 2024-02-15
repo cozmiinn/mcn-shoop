@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatChipsModule} from "@angular/material/chips";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {HeaderComponent} from "../../header/header.component";
+import {Data_userService} from "../../../data/user_data/data_user.service";
+import {Data_user} from "../../../data/user_data/data_user";
 
 @Component({
   selector: 'app-register',
@@ -12,40 +14,49 @@ import {HeaderComponent} from "../../header/header.component";
     MatIconModule,
     MatChipsModule,
     FormsModule,
-    ReactiveFormsModule,
     HeaderComponent
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
-  skills = ['React', 'Node', '.NET'];
+  firstName: string = '';
+  lastName: string = '';
+  middleName: string = '';
+  email: string = '';
+  password: string = '';
+  streetLine: string = '';
+  postalCode: string = '';
+  city: string = '';
+  county: string = '';
+  country: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private customer: Data_userService) {
     this.registrationForm = this.fb.group({
-      name: ['', Validators.required],
+      fistName: ['', Validators.required],
       lastName: ['', [Validators.required, Validators.email]],
       middleName: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
-      streetLine: ['', Validators.required],
-      postalCode: ['', Validators.required],
-      city: ['', Validators.required],
-      county: ['', Validators.required],
-      country: ['', Validators.required]
+      // streetLine: ['', Validators.required],
+      // postalCode: ['', Validators.required],
+      // city: ['', Validators.required],
+      // county: ['', Validators.required],
+      // country: ['', Validators.required]
     });
+  };
+
+  ngOnInit(): void {
+    this.customer.reloadSeller();
   }
+
+  signUp(data: Data_user): void {
+    console.warn(data);
+    this.customer.userSignUp(data);
+  };
 
   handleLoginClick(): void {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then(r => console.log(r));
   }
-
-  handleSubmit(): void {
-    if (this.registrationForm.valid) {
-      console.log('Înregistrare reușită', this.registrationForm.value);
-      // logica de înregistrare
-    }
-  }
-
 }
