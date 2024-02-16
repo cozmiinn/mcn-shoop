@@ -2,10 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {HeaderComponent} from "../../header/header.component";
 import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {User_dataService} from "../../../data/user_data/user_data.service";
-import {User_data} from "../../../data/user_data/user_data";
+import {UserService} from "../../../data/user/users-data/user.service";
+import {User} from "../../../data/user/users-data/user-data";
 import {NgIf} from "@angular/common";
-import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -34,7 +33,7 @@ export class LoginComponent implements OnInit {
   registrationForm: FormGroup;
   authError: String = '';
 
-  constructor(private fb: FormBuilder, private router: Router, private customer: User_dataService) {
+  constructor(private fb: FormBuilder, private router: Router, private customer: UserService) {
     this.registrationForm = this.fb.group({
       fistName: ['', Validators.required],
       lastName: ['', [Validators.required, Validators.email]],
@@ -53,12 +52,12 @@ export class LoginComponent implements OnInit {
     this.customer.reloadSeller();
   }
 
-  signUp(data: User_data): void {
+  signUp(data: User): void {
     console.warn(data);
     this.customer.userSignUp(data);
   };
 
-  logIn(data: User_data): void {
+  logIn(data: User): void {
     this.customer.userLogIn(data);
     this.customer.isLoginError.subscribe((isError) => {
       if (isError) {

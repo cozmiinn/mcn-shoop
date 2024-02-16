@@ -1,4 +1,4 @@
-import {DataBaseProducts} from './data_baseProducts';
+import {DataBaseProducts} from './baseProducts-data';
 
 describe('Products', () => {
   it('should create an instance', () => {

@@ -1,13 +1,13 @@
 import {TestBed} from '@angular/core/testing';
 
-import {User_dataService} from './user_data.service';
+import {DataPVariantService} from './productsVariant-data.service';
 
-describe('UserService', () => {
-  let service: User_dataService;
+describe('DataPVariantService', () => {
+  let service: DataPVariantService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(User_dataService);
+    service = TestBed.inject(DataPVariantService);
   });
 
   it('should be created', () => {

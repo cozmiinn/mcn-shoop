@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 
-import {DataBaseProductsService} from './data_baseProducts.service';
+import {DataBaseProductsService} from './baseProducts-data.service';
 
 describe('DataProductsService', () => {
   let service: DataBaseProductsService;

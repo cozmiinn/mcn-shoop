@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from "rxjs";
-import {User_data} from "./user_data";
+import {User} from "./user-data";
 import {Router} from "@angular/router";
 
 
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 
-export class User_dataService {
+export class UserService {
   private baseUrl = "http://localhost:8000";
   isSellerLoggedIn = new BehaviorSubject<boolean>(false);
   isLoginError = new EventEmitter<boolean>(false);
@@ -18,12 +18,12 @@ export class User_dataService {
   }
 
 
-  getUsers(): Observable<User_data[]> {
-    return this.http.get<User_data[]>(`${this.baseUrl}/api/users`);
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/api/users`);
   }
 
 
-  userSignUp(data: User_data) {
+  userSignUp(data: User) {
     return this.http.post(`${this.baseUrl}/api/users/add`,
       data,
       {observe: 'response'}).subscribe((result) => {
@@ -43,7 +43,7 @@ export class User_dataService {
     }
   }
 
-  userLogIn(data: User_data) {
+  userLogIn(data: User) {
     this.http.get(`http://localhost:8000/api/users`,
       {observe: 'response'}).subscribe((result: any) => {
       console.warn(result);

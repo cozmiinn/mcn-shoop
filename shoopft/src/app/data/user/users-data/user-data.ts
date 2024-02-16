@@ -1,7 +1,7 @@
-import {Addresses} from "./adress";
-import {PaymentCards} from "./paymentCards";
+import {Addresses} from "../addresses-data/addresses-data";
+import {PaymentCards} from "../cards-data/cards-data";
 
-export class User_data {
+export class User {
   id!: number;
   firstName!: string;
   lastName!: string;

@@ -2,15 +2,10 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from "./app.routes";
-import {User_dataService} from "./data/user_data/user_data.service";
-import {
-  DataBaseProductsService
-} from "./data/products_data/baseProduct_data/data_baseProducts.service";
+import {UserService} from "./data/user/users-data/user.service";
+import {BaseProductsService} from "./data/products/baseProduct-data/baseProducts-data.service";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {
-  DataProductsVariantService
-} from "./data/products_data/productsVariant_data/data-productsVariant.service";
-import {AuthGuard} from "./auth.guard";
+import {ProductsVariantService} from "./data/products/productsVariant-data/productsVariant-data.service";
 
 @NgModule({
   declarations: [],
@@ -20,7 +15,7 @@ import {AuthGuard} from "./auth.guard";
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [User_dataService, DataBaseProductsService, DataProductsVariantService],
+  providers: [UserService, BaseProductsService, ProductsVariantService],
   exports: [],
   bootstrap: []
 })

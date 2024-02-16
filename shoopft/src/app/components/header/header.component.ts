@@ -3,8 +3,8 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
-import {DataBaseProducts} from "../../data/products_data/baseProduct_data/data_baseProducts";
-import {DataBaseProductsService} from "../../data/products_data/baseProduct_data/data_baseProducts.service";
+import {BaseProducts} from "../../data/products/baseProduct-data/baseProducts-data";
+import {BaseProductsService} from "../../data/products/baseProduct-data/baseProducts-data.service";
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -15,14 +15,14 @@ import {RouterLink} from "@angular/router";
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  products: DataBaseProducts[] = [];
+  products: BaseProducts[] = [];
   isLoggedIn: boolean = false;
 
-  constructor(private productService: DataBaseProductsService) {
+  constructor(private productService: BaseProductsService) {
   }
 
   ngOnInit(): void {
-    this.productService.getBaseProducts().subscribe((data: DataBaseProducts[]) => {
+    this.productService.getBaseProducts().subscribe((data: BaseProducts[]) => {
       this.products = data;
     });
 

@@ -21,7 +21,7 @@
           <td>{{ user.middleName }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.phoneNumber }}</td>
-          <td *ngFor="let address of user.address">{{ address.city }}</td>
+          <td *ngFor="let adresses of user.address">{{ adresses.city }}</td>
           <!--          <td>{{ user.paymentCards.ts }}</td>-->
         </tr>
         </tbody>

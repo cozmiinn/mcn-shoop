@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {HeaderComponent} from "../../header/header.component";
 import {NgForOf} from "@angular/common";
-import {DataProductsVariant} from "../../../data/products_data/productsVariant_data/data-productsVariant";
-import {DataBaseProducts} from "../../../data/products_data/baseProduct_data/data_baseProducts";
-import {DataBaseProductsService} from "../../../data/products_data/baseProduct_data/data_baseProducts.service";
+import {ProductsVariant} from "../../../data/products/productsVariant-data/productsVariant-data";
+import {BaseProducts} from "../../../data/products/baseProduct-data/baseProducts-data";
+import {BaseProductsService} from "../../../data/products/baseProduct-data/baseProducts-data.service";
 import {ProductComponent} from "../../product/product.component";
 
 @Component({
@@ -18,19 +18,19 @@ import {ProductComponent} from "../../product/product.component";
   styleUrl: './products_search.component.css'
 })
 export class Products_searchComponent implements OnInit {
-  name: DataProductsVariant[] = [];
-  productVariant: DataBaseProducts[] = [];
-  type: DataBaseProducts[] = [];
+  name: ProductsVariant[] = [];
+  productVariant: BaseProducts[] = [];
+  type: BaseProducts[] = [];
   selectedCategory: string = '';
   filtered: any[] = [];
   searchWord: string = '';
   categories: Set<string> = new Set();
 
-  constructor(private variantService: DataBaseProductsService) {
+  constructor(private variantService: BaseProductsService) {
   }
 
   ngOnInit() {
-    this.variantService.getBaseProducts().subscribe((data: DataBaseProducts[]) => {
+    this.variantService.getBaseProducts().subscribe((data: BaseProducts[]) => {
       this.productVariant = data;
       this.categories = new Set(data.map((product: any) => product.type));
     });
@@ -64,7 +64,7 @@ export class Products_searchComponent implements OnInit {
       : [...this.productVariant];
   }
 
-  filterVariantsBySearchWord(variants: DataProductsVariant[]) {
+  filterVariantsBySearchWord(variants: ProductsVariant[]) {
     return this.searchWord
       ? variants.filter(variant =>
         variant.name.toLowerCase().includes(this.searchWord.toLowerCase()))
@@ -76,9 +76,9 @@ export class Products_searchComponent implements OnInit {
 // import {Component, OnInit} from '@angular/core';
 // import {HeaderComponent} from "../../header/header.component";
 // import {NgForOf} from "@angular/common";
-// import {DataProductsVariant} from "../../../data/products_data/productsVariant_data/data-productsVariant";
-// import {DataBaseProducts} from "../../../data/products_data/baseProduct_data/data_baseProducts";
-// import {DataBaseProductsService} from "../../../data/products_data/baseProduct_data/data_baseProducts.service";
+// import {ProductsVariantData} from "../../../data/products/productsVariant-data/data-productsVariant";
+// import {DataBaseProducts} from "../../../data/products/baseProduct-data/data_baseProducts";
+// import {DataBaseProductsService} from "../../../data/products/baseProduct-data/data_baseProducts.service";
 // import {ProductComponent} from "../../product/product.component";
 //
 // @Component({
@@ -93,7 +93,7 @@ export class Products_searchComponent implements OnInit {
 //   styleUrl: './products_search.component.css'
 // })
 // export class Products_searchComponent implements OnInit {
-//   name: DataProductsVariant[] = [];
+//   name: ProductsVariantData[] = [];
 //   productVariant: DataBaseProducts[] = [];
 //   type: DataBaseProducts[] = [];
 //   selectedCategory: string = '';
@@ -139,7 +139,7 @@ export class Products_searchComponent implements OnInit {
 //       : [...this.productVariant];
 //   }
 //
-//   filterVariantsBySearchWord(variants: DataProductsVariant[]) {
+//   filterVariantsBySearchWord(variants: ProductsVariantData[]) {
 //     return this.searchWord
 //       ? variants.filter(variant =>
 //         variant.name.toLowerCase().includes(this.searchWord.toLowerCase()) ||

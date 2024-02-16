@@ -4,8 +4,8 @@
 // import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
 // import {Router} from "@angular/router";
 // import {HeaderComponent} from "../../header/header.component";
-// import {User_dataService} from "../../../data/user_data/data_user.service";
-// import {User_data} from "../../../data/user_data/data_user";
+// import {UserDataService} from "../../../data/users-data/data_user.service";
+// import {UserData} from "../../../data/users-data/data_user";
 //
 // @Component({
 //   selector: 'app-register',
@@ -32,7 +32,7 @@
 //   county: string = '';
 //   country: string = '';
 //
-//   constructor(private fb: FormBuilder, private router: Router, private customer: User_dataService) {
+//   constructor(private fb: FormBuilder, private router: Router, private customer: UserDataService) {
 //     this.registrationForm = this.fb.group({
 //       fistName: ['', Validators.required],
 //       lastName: ['', [Validators.required, Validators.email]],
@@ -51,7 +51,7 @@
 //     this.customer.reloadSeller();
 //   }
 //
-//   signUp(data: User_data): void {
+//   signUp(data: UserData): void {
 //     console.warn(data);
 //     this.customer.userSignUp(data);
 //   };
