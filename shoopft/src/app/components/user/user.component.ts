@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Data_user} from "../../data/user_data/data_user";
-import {Data_userService} from "../../data/user_data/data_user.service";
+import {User_data} from "../../data/user_data/user_data";
+import {User_dataService} from "../../data/user_data/user_data.service";
 import {CommonModule, NgForOf} from "@angular/common";
+import {Addresses} from "../../data/user_data/adress";
+import {addAriaReferencedId} from "@angular/cdk/a11y";
+import {join} from "@angular/compiler-cli";
 
 @Component({
   selector: 'app-user',
@@ -13,16 +16,21 @@ import {CommonModule, NgForOf} from "@angular/common";
   standalone: true
 })
 export class UserComponent implements OnInit {
-  users: Data_user[] = [];
+  users: User_data[] = [];
+  adresses: Addresses[] = [];
 
-  constructor(private userService: Data_userService) {
+  constructor(private userService: User_dataService) {
   }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe((data: Data_user[]) => {
+    this.userService.getUsers().subscribe((data: User_data[]) => {
         console.log(data);
         this.users = data;
       }
     )
   }
+
+  protected readonly Addresses = Addresses;
+  protected readonly addAriaReferencedId = addAriaReferencedId;
+  protected readonly join = join;
 }

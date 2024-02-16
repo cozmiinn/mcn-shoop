@@ -1,8 +1,8 @@
-import {CanActivateFn, Router} from '@angular/router';
+import {CanActivateFn} from '@angular/router';
 
 import {ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from "rxjs";
-import {Data_userService} from "./data/user_data/data_user.service";
+import {User_dataService} from "./data/user_data/user_data.service";
 import {Inject} from "@angular/core";
 
 
@@ -12,6 +12,6 @@ export const AuthGuard: CanActivateFn = (
 ):
   Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree => {
 
-  return Inject(Data_userService).isSellerLoggedIn;
+  return Inject(User_dataService).isSellerLoggedIn;
 
 };

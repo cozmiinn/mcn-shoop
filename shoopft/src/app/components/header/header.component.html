@@ -37,9 +37,10 @@
 
       <div class='right-section'>
         <div class='button-list-user'>
-          <a routerLink="/login" class="logo-account">
+          <a *ngIf="!isLoggedIn" routerLink="/login" class="logo-account">
             <img ngSrc="../../../assets/images/account.jpg" alt="account" height="40" width="40">
           </a>
+          <button *ngIf="isLoggedIn"></button>
           <a href="/products" class="logo-search">
             <img ngSrc="../../../assets/images/search.png" alt="search" height="30" width="30">
           </a>

@@ -16,15 +16,15 @@ import {RouterLink} from "@angular/router";
 })
 export class HeaderComponent {
   products: DataBaseProducts[] = [];
+  isLoggedIn: boolean = false;
 
   constructor(private productService: DataBaseProductsService) {
   }
 
   ngOnInit(): void {
     this.productService.getBaseProducts().subscribe((data: DataBaseProducts[]) => {
-        console.log(data);
-        this.products = data;
-      }
-    )
+      this.products = data;
+    });
+
   }
 }
