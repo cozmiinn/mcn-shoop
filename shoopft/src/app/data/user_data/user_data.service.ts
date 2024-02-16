@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from "rxjs";
-import {Data_user} from "./data_user";
+import {User_data} from "./user_data";
 import {Router} from "@angular/router";
 
 
@@ -9,23 +9,21 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 
-export class Data_userService {
+export class User_dataService {
   private baseUrl = "http://localhost:8000";
   isSellerLoggedIn = new BehaviorSubject<boolean>(false);
+  isLoginError = new EventEmitter<boolean>(false);
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
 
-  getUsers(): Observable<Data_user[]> {
-    return this.http.get<Data_user[]>(`${this.baseUrl}/api/users`);
+  getUsers(): Observable<User_data[]> {
+    return this.http.get<User_data[]>(`${this.baseUrl}/api/users`);
   }
 
-  userSignIn(data: any) {
-    return this.http.get(`${this.baseUrl}/api/users`, data);
-  }
 
-  userSignUp(data: Data_user) {
+  userSignUp(data: User_data) {
     return this.http.post(`${this.baseUrl}/api/users/add`,
       data,
       {observe: 'response'}).subscribe((result) => {
@@ -43,5 +41,19 @@ export class Data_userService {
       this.router.navigate(['customer-page']);
 
     }
+  }
+
+  userLogIn(data: User_data) {
+    this.http.get(`http://localhost:8000/api/users`,
+      {observe: 'response'}).subscribe((result: any) => {
+      console.warn(result);
+      if (result && result.body) {
+        this.isLoginError.emit(false);
+        localStorage.setItem('customer', JSON.stringify(result));
+        this.router.navigate(['customer-page']);
+      } else {
+        this.isLoginError.emit(true);
+      }
+    });
   }
 }

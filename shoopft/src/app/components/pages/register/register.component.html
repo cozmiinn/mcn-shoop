@@ -1,106 +1,106 @@
-<app-header></app-header>
-<div>
-  <form #singUp="ngForm" class="registration-form" (ngSubmit)="signUp(singUp.value)">
-    <div class="title">Create an account</div>
+<!--<app-header></app-header>-->
+<!--<div>-->
+<!--  <form #singUp="ngForm" class="registration-form" (ngSubmit)="signUp(singUp.value)">-->
+<!--    <div class="title">Create an account</div>-->
 
-    <div>
-      <label for="firstName">Name</label>
-      <input
-        type="text"
-        id="firstName"
-        [(ngModel)]="firstName"
-        required
-        name="firstName"
-      />
-    </div>
-    <div>
-      <label for="lastName">Last name</label>
-      <input
-        type="text"
-        id="lastName"
-        [(ngModel)]="lastName"
-        name="lastName"
-        required
-      />
-    </div>
-    <div>
-      <label for="middleName">Middle Name</label>
-      <input type="text"
-             id="middleName"
-             [(ngModel)]="middleName"
-             name="middleName"
-             required
-      />
-    </div>
-    <div>
-      <label for="email">Email</label>
-      <input type="email"
-             id="email"
-             [(ngModel)]="email"
-             name="email"
-             required
-      />
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input type="password"
-             id="password"
-             [(ngModel)]="password"
-             name="password"
-             required
-      />
-    </div>
-    <!--    <div>-->
-    <!--      <label for="streetLine">Street Line</label>-->
-    <!--      <input type="text"-->
-    <!--             id="streetLine"-->
-    <!--             [(ngModel)]="streetLine"-->
-    <!--             name="streetLine"-->
-    <!--             required-->
-    <!--      />-->
-    <!--    </div>-->
-    <!--    <div>-->
-    <!--      <label for="postalCode">Postal code</label>-->
-    <!--      <input type="text"-->
-    <!--             id="postalCode"-->
-    <!--             [(ngModel)]="postalCode"-->
-    <!--             name="postalCode"-->
-    <!--             required-->
-    <!--      />-->
-    <!--    </div>-->
-    <!--    <div>-->
-    <!--      <label for="city">City</label>-->
-    <!--      <input type="text"-->
-    <!--             id="city"-->
-    <!--             [(ngModel)]="city"-->
-    <!--             name="city"-->
-    <!--             required-->
-    <!--      />-->
-    <!--    </div>-->
-    <!--    <div>-->
-    <!--      <label for="county">County</label>-->
-    <!--      <input type="text"-->
-    <!--             id="county"-->
-    <!--             [(ngModel)]="county"-->
-    <!--             name="county"-->
-    <!--             required-->
-    <!--      />-->
-    <!--    </div>-->
-    <!--    <div>-->
-    <!--      <label for="country">Country</label>-->
-    <!--      <input type="text"-->
-    <!--             id="country"-->
-    <!--             [(ngModel)]="country"-->
-    <!--             name="country"-->
-    <!--             required-->
-    <!--      />-->
-    <!--    </div>-->
+<!--    <div>-->
+<!--      <label for="firstName">Name</label>-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        id="firstName"-->
+<!--        [(ngModel)]="firstName"-->
+<!--        required-->
+<!--        name="firstName"-->
+<!--      />-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <label for="lastName">Last name</label>-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        id="lastName"-->
+<!--        [(ngModel)]="lastName"-->
+<!--        name="lastName"-->
+<!--        required-->
+<!--      />-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <label for="middleName">Middle Name</label>-->
+<!--      <input type="text"-->
+<!--             id="middleName"-->
+<!--             [(ngModel)]="middleName"-->
+<!--             name="middleName"-->
+<!--             required-->
+<!--      />-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <label for="email">Email</label>-->
+<!--      <input type="email"-->
+<!--             id="email"-->
+<!--             [(ngModel)]="email"-->
+<!--             name="email"-->
+<!--             required-->
+<!--      />-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <label for="password">Password</label>-->
+<!--      <input type="password"-->
+<!--             id="password"-->
+<!--             [(ngModel)]="password"-->
+<!--             name="password"-->
+<!--             required-->
+<!--      />-->
+<!--    </div>-->
+<!--    &lt;!&ndash;    <div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <label for="streetLine">Street Line</label>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <input type="text"&ndash;&gt;-->
+<!--    &lt;!&ndash;             id="streetLine"&ndash;&gt;-->
+<!--    &lt;!&ndash;             [(ngModel)]="streetLine"&ndash;&gt;-->
+<!--    &lt;!&ndash;             name="streetLine"&ndash;&gt;-->
+<!--    &lt;!&ndash;             required&ndash;&gt;-->
+<!--    &lt;!&ndash;      />&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <label for="postalCode">Postal code</label>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <input type="text"&ndash;&gt;-->
+<!--    &lt;!&ndash;             id="postalCode"&ndash;&gt;-->
+<!--    &lt;!&ndash;             [(ngModel)]="postalCode"&ndash;&gt;-->
+<!--    &lt;!&ndash;             name="postalCode"&ndash;&gt;-->
+<!--    &lt;!&ndash;             required&ndash;&gt;-->
+<!--    &lt;!&ndash;      />&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <label for="city">City</label>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <input type="text"&ndash;&gt;-->
+<!--    &lt;!&ndash;             id="city"&ndash;&gt;-->
+<!--    &lt;!&ndash;             [(ngModel)]="city"&ndash;&gt;-->
+<!--    &lt;!&ndash;             name="city"&ndash;&gt;-->
+<!--    &lt;!&ndash;             required&ndash;&gt;-->
+<!--    &lt;!&ndash;      />&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <label for="county">County</label>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <input type="text"&ndash;&gt;-->
+<!--    &lt;!&ndash;             id="county"&ndash;&gt;-->
+<!--    &lt;!&ndash;             [(ngModel)]="county"&ndash;&gt;-->
+<!--    &lt;!&ndash;             name="county"&ndash;&gt;-->
+<!--    &lt;!&ndash;             required&ndash;&gt;-->
+<!--    &lt;!&ndash;      />&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <label for="country">Country</label>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <input type="text"&ndash;&gt;-->
+<!--    &lt;!&ndash;             id="country"&ndash;&gt;-->
+<!--    &lt;!&ndash;             [(ngModel)]="country"&ndash;&gt;-->
+<!--    &lt;!&ndash;             name="country"&ndash;&gt;-->
+<!--    &lt;!&ndash;             required&ndash;&gt;-->
+<!--    &lt;!&ndash;      />&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
 
 
-    <button class="register-button" type="submit">Sign up</button>
-    <div class="prompt">
-      You have already an account?
-      <a class="redirect" (click)="handleLoginClick()"> Login</a>
-    </div>
-  </form>
-</div>
+<!--    <button class="register-button" type="submit">Sign up</button>-->
+<!--    <div class="prompt">-->
+<!--      You have already an account?-->
+<!--      <a class="redirect" (click)="handleLoginClick()"> Login</a>-->
+<!--    </div>-->
+<!--  </form>-->
+<!--</div>-->
