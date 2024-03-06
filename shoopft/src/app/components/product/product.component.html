@@ -1,18 +1,16 @@
-<div>
-  <div class="product">
-    <div class="imaginii">
-      <!--    <img src="{{variant.image}}" alt="{{variant.title}}"/>-->
+<div class="product">
+  <div class="imaginii">
+    <!--    <img src="{{variant.image}}" alt="{{variant.title}}"/>-->
+  </div>
+  <div *ngFor="let variants of product">
+    <h3>{{ variants.name }}</h3>
+    <p>{{ variants.description }}</p>
+    <div class="theSameLine">
+      <p class="price">${{ variants.price }}</p>
+      <a class="addToWish">
+        <!--         (click)="handleAddToWish(variant)"-->
+        Add to wishlist</a>
     </div>
-    <div *ngFor="let variants of product">
-      <h3>{{ variants.name }}</h3>
-      <p>{{ variants.description }}</p>
-      <div class="theSameLine">
-        <p class="price">${{ variants.price }}</p>
-        <a class="addToWish">
-          <!--         (click)="handleAddToWish(variant)"-->
-          Add to wishlist</a>
-      </div>
-      <p>Add to cart</p>
-    </div>
+    <p>Add to cart</p>
   </div>
 </div>

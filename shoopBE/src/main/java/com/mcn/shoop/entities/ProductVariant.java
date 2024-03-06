@@ -35,6 +35,8 @@ public class ProductVariant{
     @Column(name = "added_date", length = 10)
     private Date addedDate;
 
+    @Column(name = "picture_url")
+    private String pictureURL;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "base_product_id")

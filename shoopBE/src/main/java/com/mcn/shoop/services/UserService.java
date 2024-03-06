@@ -73,6 +73,7 @@ public class UserService {
 
         User currentUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found!"));
 
+        currentUser.setUserName(userDTO.getUserName());
         currentUser.setFirstName(userDTO.getFirstName());
         currentUser.setLastName(userDTO.getLastName());
         currentUser.setMiddleName(userDTO.getMiddleName());

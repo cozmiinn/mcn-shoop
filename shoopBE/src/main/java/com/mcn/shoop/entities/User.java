@@ -2,10 +2,13 @@ package com.mcn.shoop.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.mcn.shoop.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+
 import java.util.List;
 
 
@@ -19,6 +22,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name="user_name", length = 50)
+    private String userName;
 
     @Column(name="first_name", length = 50)
     private String firstName;
@@ -35,8 +41,11 @@ public class User {
     @Column(name="phone_number", length = 50)
     private String phoneNumber;
 
+    @Getter
     @Column(name="password", length = 50)
     private String password;
+
+//    private UserRole role;
 
     @OneToMany(mappedBy = "user")
     private List<Address> address;

@@ -11,6 +11,8 @@ import com.mcn.shoop.repositories.ProductVariantRepository;
 import com.mcn.shoop.validators.ProductVariantValidator;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -37,11 +39,20 @@ public class ProductVariantService {
         this.attributeStructMapper = attributeStructMapper;
     }
 
-    public List<ProductVariantDTO> getProductVariants(){
-        List<ProductVariant> getProductVariants = productVariantRepository.findAll();
-        List<ProductVariantDTO> productVariantDTOS;
+//la fiecare queri din bd, ofera 10rezultate/pagin, nu toate simultan
+    public Page<ProductVariantDTO> getProductVariants (Pageable pageable){
+        Page<ProductVariant> getProductVariants = productVariantRepository.findAll(pageable);
+        Page<ProductVariantDTO> productVariantDTOS;
         productVariantDTOS = getProductVariants
-                .stream()
+                .map(productVariantStructMapper::productVariantToProductVariantDto);
+        return productVariantDTOS;
+    }
+
+    //cautare dupa nume in db
+    public List<ProductVariantDTO> searchProductVariantByName(String keyword){
+        List<ProductVariant> productVariants = productVariantRepository.searchProductVariantByName(keyword);
+        List<ProductVariantDTO> productVariantDTOS;
+        productVariantDTOS = productVariants.stream()
                 .map(productVariantStructMapper::productVariantToProductVariantDto)
                 .collect(Collectors.toList());
         return productVariantDTOS;
@@ -66,6 +77,7 @@ public class ProductVariantService {
         currentProductVariant.setPrice(productVariantDTO.getPrice());
         currentProductVariant.setAvailableQuantity(productVariantDTO.getAvailableQuantity());
         currentProductVariant.setAddedDate(productVariantDTO.getAddedDate());
+        currentProductVariant.setPictureURL(productVariantDTO.getPictureURL());
 
         currentProductVariant = productVariantRepository.save(currentProductVariant);
 

@@ -5,12 +5,12 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {BaseProducts} from "../../data/products/baseProduct-data/baseProducts-data";
 import {BaseProductsService} from "../../data/products/baseProduct-data/baseProducts-data.service";
-import {RouterLink} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatToolbarModule, MatIconModule, NgOptimizedImage, RouterLink],
+  imports: [CommonModule, MatButtonModule, MatToolbarModule, MatIconModule, NgOptimizedImage, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

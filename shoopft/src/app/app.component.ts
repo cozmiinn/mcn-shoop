@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {AppModule} from "./app.module";
 import {RouterOutlet} from "@angular/router";
 import {HomepageComponent} from "./components/pages/homepage/homepage.component";
+import {HeaderComponent} from "./components/header/header.component";
 
 
 @Component({
@@ -12,7 +13,8 @@ import {HomepageComponent} from "./components/pages/homepage/homepage.component"
   imports: [
     AppModule,
     RouterOutlet,
-    HomepageComponent
+    HomepageComponent,
+    HeaderComponent
   ]
 })
 export class AppComponent {

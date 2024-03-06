@@ -30,7 +30,7 @@ export class UserService {
       console.warn(result);
       if (result) {
         localStorage.setItem('customer', JSON.stringify(result));
-        this.router.navigate(['customer-page']);
+        this.router.navigate(['customers']);
       }
     });
   }
@@ -38,22 +38,22 @@ export class UserService {
   reloadSeller() {
     if (localStorage.getItem('customer')) {
       this.isSellerLoggedIn.next(true);
-      this.router.navigate(['customer-page']);
+      this.router.navigate(['customers']);
 
     }
   }
 
-  userLogIn(data: User) {
-    this.http.get(`http://localhost:8000/api/users`,
-      {observe: 'response'}).subscribe((result: any) => {
-      console.warn(result);
-      if (result && result.body) {
-        this.isLoginError.emit(false);
-        localStorage.setItem('customer', JSON.stringify(result));
-        this.router.navigate(['customer-page']);
-      } else {
-        this.isLoginError.emit(true);
-      }
-    });
-  }
+  // userLogIn(data: User) {
+  //   this.http.get(`http://localhost:8000/api/users`,
+  //     {observe: 'response'}).subscribe((result: any) => {
+  //     console.warn(result);
+  //     if (result && result.body) {
+  //       this.isLoginError.emit(false);
+  //       localStorage.setItem('customer', JSON.stringify(result));
+  //       this.router.navigate(['customers']);
+  //     } else {
+  //       this.isLoginError.emit(true);
+  //     }
+  //   });
+  // }
 }

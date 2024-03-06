@@ -9,6 +9,7 @@ export class User {
   email!: string;
   phoneNumber!: number;
   password!: string;
+  role!: string;
   address!: Addresses[];
   paymentCard!: PaymentCards[];
 }

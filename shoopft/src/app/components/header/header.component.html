@@ -37,14 +37,21 @@
 
       <div class='right-section'>
         <div class='button-list-user'>
-          <a *ngIf="!isLoggedIn" routerLink="/login" class="logo-account">
+
+          <a href="/dashboard" routerLinkActive="active">Dashboard</a>
+          <a href="/analytics" routerLinkActive="active">Analytics</a>
+          <a href="/add-product" routerLinkActive="active">Products</a>
+          <a href="/orders" routerLinkActive="active">Order</a>
+          <a href="/vouchers" routerLinkActive="active">Vouchers</a>
+          <!--          primele 4 o sa apara doar cand o sa fie adminul logat, daca e clientul nu o sa-i apara-->
+
+          <a routerLink="/login" routerLinkActive="active" class="logo-account">
             <img ngSrc="../../../assets/images/account.jpg" alt="account" height="40" width="40">
           </a>
-          <button *ngIf="isLoggedIn"></button>
-          <a href="/products" class="logo-search">
+          <a href="/products" routerLinkActive="active" class="logo-search">
             <img ngSrc="../../../assets/images/search.png" alt="search" height="30" width="30">
           </a>
-          <a href="/cart" class="logo-cart">
+          <a href="/cart" routerLinkActive="active" class="logo-cart">
             <img ngSrc="../../../assets/images/shop.jpg" alt="cart" height="40" width="40">
           </a>
         </div>

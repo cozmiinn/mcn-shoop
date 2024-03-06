@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ProductsVariant} from "./productsVariant-data";
+
+const BASIC_URL = "http://localhost:8000";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsVariantService {
-  constructor(private http: HttpClient) {
-  }
+export class AdminService {
+
 }

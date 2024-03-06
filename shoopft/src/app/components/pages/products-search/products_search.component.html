@@ -1,5 +1,3 @@
-<app-header></app-header>
-
 <!--<div class="float-container">-->
 <!--  <div class="float-child-left">-->
 <!--    <ul>-->
@@ -49,9 +47,7 @@
     <div class="allProducts">
       <ul>
         <div class="container-6">
-          <li>
-            <app-product *ngFor="let product of filtered" [product]="product.productVariants"></app-product>
-          </li>
+          <app-product *ngFor="let product of filtered" [product]="product.productVariants"></app-product>
         </div>
       </ul>
     </div>

@@ -15,5 +15,6 @@ public class ProductVariantDTO {
     private Float price;
     private int availableQuantity;
     private Date addedDate;
+    private String pictureURL;
     private List<AttributeDTO> attribute;
 }
